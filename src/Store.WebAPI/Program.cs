@@ -1,4 +1,12 @@
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((hostContext, services, configuration) =>
+{
+    configuration
+        .WriteTo.Console();
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
