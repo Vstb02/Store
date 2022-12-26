@@ -7,6 +7,7 @@ using Store.Domain.Identity;
 using Store.Infrastructure.Extensions;
 using Store.Infrastructure.Identity;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,10 @@ builder.Host.UseSerilog((hostContext, services, configuration) =>
 });
 
 builder.Services.ConfigureDbContext(builder.Configuration);
+builder.Services.ConfigureDependencyContainer();
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
         .AddEntityFrameworkStores<AppIdentityDbContext>()
