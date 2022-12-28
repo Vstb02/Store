@@ -1,11 +1,11 @@
 ﻿using Store.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace Store.WebAPI.Models.Products
+namespace Store.Application.Models.Products
 {
-    public record class CreateProductDto
+    public record class UpdateProductDto
     {
-        [Display(Name = "Название")]
+        [Display(Name = "Имя")]
         [Required(ErrorMessage = "Поле «{0}» не заполнено")]
         [MaxLength(200, ErrorMessage = "Поле «{0}» превысило максимально допустимое значение в «{1}» символов")]
         public string Name { get; init; }
@@ -16,11 +16,11 @@ namespace Store.WebAPI.Models.Products
         public string Description { get; init; }
 
         [Display(Name = "Цена")]
-        [Required(ErrorMessage = "Поле {0}» не заполнено")]
+        [Required(ErrorMessage = "Поле «{0}» не заполнено")]
         [Range(10, 1000000, ErrorMessage = "Значение для {0} должно быть между {1} ​​и {2}.")]
         public decimal Price { get; init; }
 
-        [Display(Name = "Главное изображение")]
+        [Display(Name = "Основное изображение")]
         [Required(ErrorMessage = "Поле «{0}» не заполнено")]
         [MaxLength(200, ErrorMessage = "Поле «{0}» превысило максимально допустимое значение в «{1}» символов")]
         public string MainImageUri { get; init; }
@@ -41,7 +41,7 @@ namespace Store.WebAPI.Models.Products
         [Required(ErrorMessage = "Поле «{0}» не заполнено")]
         public Guid CategoryId { get; init; }
 
-        public CreateProductDto()
+        public UpdateProductDto()
         {
             ProductImages = new List<ProductImageDto>();
         }

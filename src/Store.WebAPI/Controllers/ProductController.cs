@@ -4,26 +4,23 @@ using Microsoft.AspNetCore.Mvc;
 using Store.Application.Common.Exceptions;
 using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
+using Store.Application.Models.Categories;
+using Store.Application.Models.Products;
 using Store.Domain.Entities;
 using Store.WebAPI.Models;
-using Store.WebAPI.Models.Categories;
-using Store.WebAPI.Models.Products;
 
 namespace Store.WebAPI.Controllers
 {
     public class ProductController : ApiControllerBase
     {
         private readonly IProductService _productService;
-        private readonly IMapper _mapper;
         private readonly ILogger<ProductController> _logger;
 
         public ProductController(IProductService productService,
-                                 ILogger<ProductController> logger,
-                                 IMapper mapper)
+                                 ILogger<ProductController> logger)
         {
             _productService = productService;
             _logger = logger;
-            _mapper = mapper;
         }
 
         /// <summary>
@@ -40,9 +37,7 @@ namespace Store.WebAPI.Controllers
         {
             try
             { 
-                var entity = _mapper.Map<Product>(request);
-
-                var result = await _productService.Create(entity);
+                var result = await _productService.Create(request);
 
                 return Ok(new Response<Guid>(200, result));
             }
@@ -73,9 +68,7 @@ namespace Store.WebAPI.Controllers
             {
                 var result = await _productService.GetById(id);
 
-                var entity = _mapper.Map<ProductDto>(result);
-
-                return Ok(new Response<ProductDto>(200, entity));
+                return Ok(new Response<ProductDto>(200, result));
             }
             catch (Exception ex)
             {
@@ -98,9 +91,7 @@ namespace Store.WebAPI.Controllers
             {
                 var result = await _productService.GetAll();
 
-                var entities = _mapper.Map<List<ProductDto>>(result);
-
-                return Ok(new Response<List<ProductDto>>(200, entities));
+                return Ok(new Response<List<ProductDto>>(200, result));
             }
             catch (Exception ex)
             {
@@ -146,18 +137,7 @@ namespace Store.WebAPI.Controllers
         {
             try
             {
-                var entity = await _productService.GetById(id);
-
-                if (entity is null)
-                {
-                    _logger.LogError($"Категория с Id {id} не найдена");
-                    return BadRequest(new Response<CategoryDto>(400, "Категория не найдена"));
-                }
-
-                _mapper.Map(request, entity);
-                entity = await _productService.Update(entity);
-
-                var result = _mapper.Map<ProductDto>(entity);
+                var result = await _productService.Update(id, request);
 
                 return Ok(new Response<ProductDto>(200, result));
             }

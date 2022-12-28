@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Store.Application.Extensions;
 using Store.Domain.Identity;
 using Store.Infrastructure.Extensions;
 using Store.Infrastructure.Identity;
@@ -22,8 +23,7 @@ builder.Host.UseSerilog((hostContext, services, configuration) =>
 
 builder.Services.ConfigureDbContext(Configuration);
 builder.Services.ConfigureDependencyContainer();
-
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.ConfigureCommonContainer();
 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

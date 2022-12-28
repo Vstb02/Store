@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using Store.Application.Models.Products;
 using Store.Domain.Entities;
-using Store.WebAPI.Models.Products;
 
-namespace Store.WebAPI.MappingProfile
+namespace Store.Application.Common.MappingProfile
 {
     public class ProductProfile : Profile
     {

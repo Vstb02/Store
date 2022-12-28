@@ -1,4 +1,4 @@
-﻿namespace Store.WebAPI.Models.Categories
+﻿namespace Store.Application.Models.Categories
 {
     public record class CategoryDto
     {

@@ -1,9 +1,8 @@
-﻿using Store.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Store.WebAPI.Models.Categories
+namespace Store.Application.Models.Categories
 {
-    public record class CreateCategoryDto
+    public record class UpdateCategoryDto
     {
         [Display(Name = "Название")]
         [Required(ErrorMessage = "Поле «{0}» не заполнено")]

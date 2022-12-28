@@ -4,23 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 using Store.Application.Common.Exceptions;
 using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
-using Store.Domain.Entities;
+using Store.Application.Models.Categories;
 using Store.WebAPI.Models;
-using Store.WebAPI.Models.Categories;
 
 namespace Store.WebAPI.Controllers
 {
     public class CategoryController : ApiControllerBase
     {
         private readonly IProductCategoryService _categoryService;
-        private readonly IMapper _mapper;
         private readonly ILogger<CategoryController> _logger;
 
-        public CategoryController(IMapper mapper,
-                                  ILogger<CategoryController> logger,
+        public CategoryController(ILogger<CategoryController> logger,
                                   IProductCategoryService categoryService)
         {
-            _mapper = mapper;
             _logger = logger;
             _categoryService = categoryService;
         }
@@ -39,21 +35,19 @@ namespace Store.WebAPI.Controllers
         {
             try
             {
-                var entity = _mapper.Map<ProductCategory>(request);
-
-                var result = await _categoryService.Create(entity);
+                var result = await _categoryService.Create(request);
 
                 return Ok(new Response<Guid>(200, result));
             }
             catch (DuplicateCategoryNameException ex)
             {
-                _logger.LogError(ex, "Произошла ошибка при попытке создать категорию");
-                return StatusCode(500, new Response<Guid>(500, "Произошла ошибка при попытке создать категорию"));
+                _logger.LogError(ex, $"Произошла ошибка при попытке создать категорию с id {ex.DuplicateItemId}");
+                return StatusCode(409, new Response<Guid>(409, "Произошла ошибка при попытке создать категорию"));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при попытке создать категорию");
-                return Conflict(new Response<Guid>(409, ex.Message));
+                return Conflict(new Response<Guid>(500, ex.Message));
             }
         }
 
@@ -73,9 +67,7 @@ namespace Store.WebAPI.Controllers
             {
                 var result = await _categoryService.GetById(id);
 
-                var entity = _mapper.Map<CategoryDto>(result);
-
-                return Ok(new Response<CategoryDto>(200, entity));
+                return Ok(new Response<CategoryDto>(200, result));
             }
             catch (Exception ex)
             {
@@ -99,9 +91,7 @@ namespace Store.WebAPI.Controllers
             {
                 var result = await _categoryService.GetAll();
 
-                var entities = _mapper.Map<List<CategoryDto>>(result);
-
-                return Ok(new Response<List<CategoryDto>>(200, entities));
+                return Ok(new Response<List<CategoryDto>>(200, result));
             }
             catch (Exception ex)
             {
@@ -126,24 +116,13 @@ namespace Store.WebAPI.Controllers
         {
             try
             {
-                var entity = await _categoryService.GetById(id);
-
-                if (entity is null)
-                {
-                    _logger.LogError($"Категория с Id {id} не найдена");
-                    return BadRequest(new Response<CategoryDto>(400, "Категория не найдена"));
-                }
-
-                _mapper.Map(request, entity);
-                entity = await _categoryService.Update(entity);
-
-                var result = _mapper.Map<CategoryDto>(entity);
+                var result = await _categoryService.Update(id, request);
 
                 return Ok(new Response<CategoryDto>(200, result));
             }
             catch (DuplicateCategoryNameException ex)
             {
-                _logger.LogError(ex, "Произошла ошибка при попытке обновить категорию");
+                _logger.LogError(ex, $"Произошла ошибка при попытке обновить категорию с id {ex.DuplicateItemId}");
                 return Conflict(new Response<Guid>(409, ex.Message));
             }
             catch (Exception ex)

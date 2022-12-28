@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using Store.Application.Models.Categories;
 using Store.Domain.Entities;
-using Store.WebAPI.Models.Categories;
 
-namespace Store.WebAPI.MappingProfile
+namespace Store.Application.Common.MappingProfile
 {
     public class CategoryProfile : Profile 
     {

@@ -1,7 +1,7 @@
 ﻿using Store.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace Store.WebAPI.Models.Products
+namespace Store.Application.Models.Products
 {
     public record class ProductDto
     {
