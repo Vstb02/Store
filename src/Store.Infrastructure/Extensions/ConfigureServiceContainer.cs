@@ -27,6 +27,13 @@ namespace Store.Infrastructure.Extensions
         public static void ConfigureDependencyContainer(this IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+            services.AddScoped<IProductImageRepository, ProductImageRepository>();
+            services.AddScoped<IBasketItemRepository, BasketItemRepository>();
+            services.AddScoped<IBasketRepository, BasketRepository>();
+
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductCategoryService, ProductCategoryService>();
         }
     }
 }
