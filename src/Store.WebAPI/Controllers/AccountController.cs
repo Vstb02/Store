@@ -36,9 +36,7 @@ namespace Store.WebAPI.Controllers
         [HttpPost]
         [SwaggerOperation(
             Summary = "Authenticates a user",
-            Description = "Authenticates a user",
-            OperationId = "auth.authenticate",
-            Tags = new[] { "AuthEndpoints" })
+            Description = "Authenticates a user")
         ]
         public async Task<IActionResult> Login(LoginUserRequestDto request)
         {
@@ -48,14 +46,14 @@ namespace Store.WebAPI.Controllers
 
                 if (userEntity == null)
                 {
-                    return StatusCode(403, new Response<LoginUserResponseDto>(403, "Пользователь не найден!"));
+                    return StatusCode(403, "Пользователь не найден!");
                 }
 
                 var result = await _signInManager.PasswordSignInAsync(request.UserName, request.Password, request.RemeberMe, false);
 
                 if (!result.Succeeded)
                 {
-                    return StatusCode(403, new Response<LoginUserResponseDto>(403, $"Неправильный логин или пароль"));
+                    return StatusCode(403, "Неправильный логин или пароль");
                 }
 
                 var response = new LoginUserResponseDto()
@@ -64,12 +62,12 @@ namespace Store.WebAPI.Controllers
                     AuthToken = await _tokenClaimsService.GetTokenAsync(userEntity)
                 };
 
-                return Ok(new Response<LoginUserResponseDto>(200, response));
+                return Ok(response);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Ошибка при авторизации {request.UserName}");
-                return BadRequest(new Response<LoginUserResponseDto>(500, "Ошибка авторизации"));
+                return BadRequest("Ошибка авторизации");
             }
         }
     }

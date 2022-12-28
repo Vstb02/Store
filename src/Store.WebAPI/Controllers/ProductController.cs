@@ -4,10 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Store.Application.Common.Exceptions;
 using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
-using Store.Application.Models.Categories;
 using Store.Application.Models.Products;
-using Store.Domain.Entities;
-using Store.WebAPI.Models;
 
 namespace Store.WebAPI.Controllers
 {
@@ -39,17 +36,17 @@ namespace Store.WebAPI.Controllers
             { 
                 var result = await _productService.Create(request);
 
-                return Ok(new Response<Guid>(200, result));
+                return Ok(result);
             }
             catch (DuplicateProductNameException ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при попытке создать товар");
-                return Conflict(new Response<Guid>(409, ex.Message));
+                return Conflict(ex.Message);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при попытке создать товар");
-                return StatusCode(500, new Response<Guid>(500, "Произошла ошибка при попытке создать товар"));
+                return StatusCode(500, "Произошла ошибка при попытке создать товар");
             }
         }
 
@@ -68,12 +65,12 @@ namespace Store.WebAPI.Controllers
             {
                 var result = await _productService.GetById(id);
 
-                return Ok(new Response<ProductDto>(200, result));
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при попытке получить товар");
-                return StatusCode(500, new Response<Guid>(500, "Произошла ошибка при попытке получить товар"));
+                return StatusCode(500, "Произошла ошибка при попытке получить товар");
             }
         }
 
@@ -91,12 +88,12 @@ namespace Store.WebAPI.Controllers
             {
                 var result = await _productService.GetAll();
 
-                return Ok(new Response<List<ProductDto>>(200, result));
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при попытке получить список товаров товар");
-                return StatusCode(500, new Response<Guid>(500, "Произошла ошибка при попытке получить список товаров товар"));
+                return StatusCode(500, "Произошла ошибка при попытке получить список товаров товар");
             }
         }
 
@@ -115,12 +112,12 @@ namespace Store.WebAPI.Controllers
             {
                 await _productService.Delete(id);
 
-                return Ok(new Response<string>(200, "Товар успешно удален"));
+                return Ok("Товар успешно удален");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "ФПроизошла ошибка при попытке удалить товар");
-                return StatusCode(500, new Response<string>(500, "Произошла ошибка при попытке удалить товар"));
+                return StatusCode(500, "Произошла ошибка при попытке удалить товар");
             }
         }
 
@@ -139,17 +136,17 @@ namespace Store.WebAPI.Controllers
             {
                 var result = await _productService.Update(id, request);
 
-                return Ok(new Response<ProductDto>(200, result));
+                return Ok(result);
             }
-            catch (DuplicateCategoryNameException ex)
+            catch (DuplicateProductNameException ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при попытке обновить товар");
-                return Conflict(new Response<Guid>(409, ex.Message));
+                return Conflict(ex.Message);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при попытке обновить данные товара");
-                return StatusCode(500, new Response<string>(500, "Произошла ошибка при попытке обновить данные товара"));
+                return StatusCode(500, "Произошла ошибка при попытке обновить данные товара");
             }
         }
     }

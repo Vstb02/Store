@@ -5,7 +5,6 @@ using Store.Application.Common.Exceptions;
 using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
 using Store.Application.Models.Categories;
-using Store.WebAPI.Models;
 
 namespace Store.WebAPI.Controllers
 {
@@ -37,17 +36,17 @@ namespace Store.WebAPI.Controllers
             {
                 var result = await _categoryService.Create(request);
 
-                return Ok(new Response<Guid>(200, result));
+                return Ok(result);
             }
             catch (DuplicateCategoryNameException ex)
             {
                 _logger.LogError(ex, $"Произошла ошибка при попытке создать категорию с id {ex.DuplicateItemId}");
-                return StatusCode(409, new Response<Guid>(409, "Произошла ошибка при попытке создать категорию"));
+                return StatusCode(409, "Произошла ошибка при попытке создать категорию");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при попытке создать категорию");
-                return Conflict(new Response<Guid>(500, ex.Message));
+                return Conflict(ex.Message);
             }
         }
 
@@ -67,12 +66,12 @@ namespace Store.WebAPI.Controllers
             {
                 var result = await _categoryService.GetById(id);
 
-                return Ok(new Response<CategoryDto>(200, result));
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при попытке получить категорию");
-                return StatusCode(500, new Response<Guid>(500, "Произошла ошибка при попытке получить категорию"));
+                return StatusCode(500, "Произошла ошибка при попытке получить категорию");
             }
         }
 
@@ -91,12 +90,12 @@ namespace Store.WebAPI.Controllers
             {
                 var result = await _categoryService.GetAll();
 
-                return Ok(new Response<List<CategoryDto>>(200, result));
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при попытке получить список категорий");
-                return StatusCode(500, new Response<Guid>(500, "Произошла ошибка при попытке получить список категорий"));
+                return StatusCode(500, "Произошла ошибка при попытке получить список категорий");
             }
         }
 
@@ -118,17 +117,17 @@ namespace Store.WebAPI.Controllers
             {
                 var result = await _categoryService.Update(id, request);
 
-                return Ok(new Response<CategoryDto>(200, result));
+                return Ok(result);
             }
             catch (DuplicateCategoryNameException ex)
             {
                 _logger.LogError(ex, $"Произошла ошибка при попытке обновить категорию с id {ex.DuplicateItemId}");
-                return Conflict(new Response<Guid>(409, ex.Message));
+                return Conflict(ex.Message);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при попытке обновить категорию");
-                return StatusCode(500, new Response<Guid>(500, "Произошла ошибка при попытке обновить категорию"));
+                return StatusCode(500, "Произошла ошибка при попытке обновить категорию");
             }
         }
 
@@ -148,12 +147,12 @@ namespace Store.WebAPI.Controllers
             {
                 await _categoryService.Delete(id);
 
-                return Ok(new Response<string>(200, "Категория успешно удалена"));
+                return Ok("Категория успешно удалена");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при попытке удалить категорию");
-                return StatusCode(500, new Response<Guid>(500, "Произошла ошибка при попытке удалить категорию"));
+                return StatusCode(500, "Произошла ошибка при попытке удалить категорию");
             }
         }
     }

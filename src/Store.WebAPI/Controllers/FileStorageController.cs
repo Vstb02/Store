@@ -40,12 +40,12 @@ namespace Store.WebAPI.Controllers
                 }
                 var key = await _fileStorageService.Upload(dir, file.OpenReadStream(), fileExtension);
 
-                return Ok(new Response<string>(200, $"/{dir}/{key})"));
+                return Ok($"/{dir}/{key})");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при сохранении файла");
-                return StatusCode(500, new Response<Guid>(500, "Произошла ошибка при сохранении файла"));
+                return StatusCode(500, "Произошла ошибка при сохранении файла");
             }
         }
 
@@ -63,12 +63,12 @@ namespace Store.WebAPI.Controllers
             {
                 _fileStorageService.HardDelete(fileUrl);
 
-                return Ok(new Response<string>(200, "Файл успешно удален"));
+                return Ok("Файл успешно удален");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Произошла ошибка при удалении файла");
-                return StatusCode(500, new Response<Guid>(500, "Произошла ошибка при удалении файла"));
+                return StatusCode(500, "Произошла ошибка при удалении файла");
             }
         }
     }
