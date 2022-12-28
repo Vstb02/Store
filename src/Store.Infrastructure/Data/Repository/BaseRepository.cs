@@ -27,8 +27,9 @@ namespace Store.Infrastructure.Data.Repository
 
         public async Task Delete(TKey id, CancellationToken cancellationToken = default)
         {
-            var entity = await _context.Set<TModel>().FirstOrDefaultAsync(x => x.Equals(id));
-            _context.Remove(entity);
+            var entities = _context.Set<TModel>();
+            var deleteEntity = await entities.FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
+            entities.Remove(deleteEntity);
             await _context.SaveChangesAsync(cancellationToken);
         }
 
