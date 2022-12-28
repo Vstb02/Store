@@ -6,10 +6,13 @@ using Serilog;
 using Store.Domain.Identity;
 using Store.Infrastructure.Extensions;
 using Store.Infrastructure.Identity;
+using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var Configuration = builder.Configuration;
 
 builder.Host.UseSerilog((hostContext, services, configuration) =>
 {
@@ -17,8 +20,10 @@ builder.Host.UseSerilog((hostContext, services, configuration) =>
         .WriteTo.Console();
 });
 
-builder.Services.ConfigureDbContext(builder.Configuration);
+builder.Services.ConfigureDbContext(Configuration);
 builder.Services.ConfigureDependencyContainer();
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -27,7 +32,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
         .AddEntityFrameworkStores<AppIdentityDbContext>()
         .AddDefaultTokenProviders();
 
-var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("JWT:SecurityKey").Value);
+var key = Encoding.ASCII.GetBytes(Configuration.GetSection("JWT:SecurityKey").Value);
 
 builder.Services.AddAuthentication(config =>
 {
@@ -42,8 +47,11 @@ builder.Services.AddAuthentication(config =>
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = false,
-        ValidateAudience = false
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidIssuer = Configuration["Jwt:Issuer"],
+        ValidAudience = Configuration["Jwt:Audience"],
     };
 });
 
@@ -62,7 +70,8 @@ builder.Services.AddSwaggerGen(c =>
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement()
