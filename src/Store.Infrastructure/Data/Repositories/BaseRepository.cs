@@ -35,7 +35,7 @@ namespace Store.Infrastructure.Data.Repositories
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<TModel>> GetAll(FilterPagingDto paging,
+        public virtual async Task<IEnumerable<TModel>> GetAll(FilterPagingDto paging,
             CancellationToken cancellationToken = default)
         {
             var query = _context.Set<TModel>();

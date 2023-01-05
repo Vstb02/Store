@@ -83,7 +83,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="200">Success</response>
         [Authorize(Roles = IdentityRoles.Admin)]
         [HttpGet]
-        public async Task<IActionResult> GetAll(FilterPagingDto filterPaging)
+        public async Task<IActionResult> GetAll([FromQuery]FilterPagingDto filterPaging)
         {
             try
             {

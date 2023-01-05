@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store.Domain.Entities;
+using Store.Domain.Filters;
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Contexts;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Store.Infrastructure.Data.Repositories
 {
@@ -16,16 +18,18 @@ namespace Store.Infrastructure.Data.Repositories
 
         public async Task<Product> GetByName(string name, CancellationToken cancellationToken = default)
         {
-            var entity = await _context.Products.FirstOrDefaultAsync(x => x.Name.Equals(name));
+            var entity = await _context.Products.FirstOrDefaultAsync(x => x.Name.Equals(name), cancellationToken);
 
             return entity;
         }
 
-        public async new Task<IEnumerable<Product>> GetAll(CancellationToken cancellationToken = default)
+        public override async Task<IEnumerable<Product>> GetAll(FilterPagingDto paging, CancellationToken cancellationToken = default)
         {
-            var entities = await _context.Products.Include(x => x.ProductImages).ToListAsync();
+            var query = _context.Products.Include(x => x.ProductImages);
+            var pagingQuery = ApplyPaging(query, paging);
+            var data = await pagingQuery.ToListAsync(cancellationToken);
 
-            return entities;
+            return data;
         }
     }
 }
