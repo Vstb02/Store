@@ -2,9 +2,9 @@
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Contexts;
 
-namespace Store.Infrastructure.Data.Repository
+namespace Store.Infrastructure.Data.Repositories
 {
-    public class ProductImageRepository : BaseRepository<ProductImage, Guid>,
+    public class ProductImageRepository : BaseRepository<ApplicationDbContext, ProductImage, Guid>,
         IProductImageRepository
     {
         public ProductImageRepository(ApplicationDbContext context)

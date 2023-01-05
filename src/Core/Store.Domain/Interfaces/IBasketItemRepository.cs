@@ -1,8 +1,9 @@
-﻿using Store.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Store.Domain.Entities;
 
 namespace Store.Domain.Interfaces
 {
-    public interface IBasketItemRepository : IBaseRepository<BasketItem, Guid>
+    public interface IBasketItemRepository : IBaseRepository<DbContext, BasketItem, Guid>
     {
     }
 }

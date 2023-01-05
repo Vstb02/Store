@@ -3,9 +3,9 @@ using Store.Domain.Entities;
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Contexts;
 
-namespace Store.Infrastructure.Data.Repository
+namespace Store.Infrastructure.Data.Repositories
 {
-    public class ProductCategoryRepository : BaseRepository<ProductCategory, Guid>,
+    public class ProductCategoryRepository : BaseRepository<ApplicationDbContext, ProductCategory, Guid>,
         IProductCategoryRepository
     {
         private readonly ApplicationDbContext _context;

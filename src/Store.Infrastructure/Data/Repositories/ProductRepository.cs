@@ -3,9 +3,9 @@ using Store.Domain.Entities;
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Contexts;
 
-namespace Store.Infrastructure.Data.Repository
+namespace Store.Infrastructure.Data.Repositories
 {
-    public class ProductRepository : BaseRepository<Product, Guid>, IProductRepository
+    public class ProductRepository : BaseRepository<ApplicationDbContext, Product, Guid>, IProductRepository
     {
         private readonly ApplicationDbContext _context;
         public ProductRepository(ApplicationDbContext context) 

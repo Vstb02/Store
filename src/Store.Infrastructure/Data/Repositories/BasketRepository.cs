@@ -2,9 +2,9 @@
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Contexts;
 
-namespace Store.Infrastructure.Data.Repository
+namespace Store.Infrastructure.Data.Repositories
 {
-    public class BasketRepository : BaseRepository<Basket, Guid>,
+    public class BasketRepository : BaseRepository<ApplicationDbContext, Basket, Guid>,
         IBasketRepository
     {
         public BasketRepository(ApplicationDbContext context)

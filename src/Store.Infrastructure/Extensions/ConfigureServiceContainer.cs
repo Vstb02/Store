@@ -5,7 +5,7 @@ using Store.Application.Interfaces;
 using Store.Application.Services;
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Contexts;
-using Store.Infrastructure.Data.Repository;
+using Store.Infrastructure.Data.Repositories;
 using Store.Infrastructure.Identity;
 
 namespace Store.Infrastructure.Extensions

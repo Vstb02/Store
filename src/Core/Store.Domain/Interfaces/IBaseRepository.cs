@@ -1,6 +1,6 @@
 ﻿namespace Store.Domain.Interfaces
 {
-    public interface IBaseRepository<TModel, TKey>
+    public interface IBaseRepository<TContext, TModel, TKey>
     {
         Task<TModel> GetById(TKey id, CancellationToken cancellationToken = default);
         Task<TModel> Create(TModel data, CancellationToken cancellationToken = default);

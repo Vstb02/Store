@@ -3,15 +3,16 @@ using Store.Domain.Entities;
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Contexts;
 
-namespace Store.Infrastructure.Data.Repository
+namespace Store.Infrastructure.Data.Repositories
 {
-    public abstract class BaseRepository<TModel, TKey> : IBaseRepository<TModel, TKey>
+    public abstract class BaseRepository<TContext, TModel, TKey> : IBaseRepository<TContext, TModel, TKey>
+        where TContext : DbContext
         where TModel : BaseEntity<TKey>
         where TKey : struct, IEquatable<TKey>
     {
-        private readonly ApplicationDbContext _context;
+        private readonly DbContext _context;
 
-        protected BaseRepository(ApplicationDbContext context)
+        protected BaseRepository(DbContext context)
         {
             _context = context;
         }
