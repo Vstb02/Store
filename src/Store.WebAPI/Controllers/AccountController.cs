@@ -34,10 +34,6 @@ namespace Store.WebAPI.Controllers
         /// <response code="403">Forbidden</response>
         /// <response code="200">Success</response>
         [HttpPost]
-        [SwaggerOperation(
-            Summary = "Authenticates a user",
-            Description = "Authenticates a user")
-        ]
         public async Task<IActionResult> Login(LoginUserRequestDto request)
         {
             var userEntity = await _userManager.FindByNameAsync(request.UserName);
