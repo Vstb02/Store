@@ -6,6 +6,7 @@ using Store.Application.Interfaces;
 using Store.Application.Models.Categories;
 using Store.Application.Models.Products;
 using Store.Domain.Entities;
+using Store.Domain.Filters;
 using Store.Domain.Interfaces;
 using System.Data;
 
@@ -55,9 +56,9 @@ namespace Store.Application.Services
             return entity;
         }
 
-        public async Task<List<ProductDto>> GetAll(CancellationToken cancellationToken = default)
+        public async Task<List<ProductDto>> GetAll(FilterPagingDto paging, CancellationToken cancellationToken = default)
         {
-            var result = await _productRepository.GetAll(cancellationToken);
+            var result = await _productRepository.GetAll(paging, cancellationToken);
 
             var entity = _mapper.Map<List<ProductDto>>(result);
 

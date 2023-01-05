@@ -6,6 +6,7 @@ using Store.Application.Interfaces;
 using Store.Application.Models.Categories;
 using Store.Application.Models.Products;
 using Store.Domain.Entities;
+using Store.Domain.Filters;
 using Store.Domain.Interfaces;
 
 namespace Store.Application.Services
@@ -46,9 +47,10 @@ namespace Store.Application.Services
             await _categoryRepository.Delete(id, cancellationToken);
         }
 
-        public async Task<List<CategoryDto>> GetAll(CancellationToken cancellationToken = default )
+        public async Task<List<CategoryDto>> GetAll(FilterPagingDto paging,
+                                                    CancellationToken cancellationToken = default)
         {
-            var result = await _categoryRepository.GetAll(cancellationToken);
+            var result = await _categoryRepository.GetAll(paging, cancellationToken);
 
             var entites = _mapper.Map<List<CategoryDto>>(result);
 
@@ -56,7 +58,7 @@ namespace Store.Application.Services
         }
 
         public async Task<CategoryDto> GetById(Guid id,
-                                                   CancellationToken cancellationToken = default)
+                                               CancellationToken cancellationToken = default)
         {
             var result = await _categoryRepository.GetById(id, cancellationToken);
 

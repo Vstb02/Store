@@ -5,6 +5,7 @@ using Store.Application.Common.Exceptions;
 using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
 using Store.Application.Models.Products;
+using Store.Domain.Filters;
 
 namespace Store.WebAPI.Controllers
 {
@@ -82,11 +83,11 @@ namespace Store.WebAPI.Controllers
         /// <response code="200">Success</response>
         [Authorize(Roles = IdentityRoles.Admin)]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(FilterPagingDto filterPaging)
         {
             try
             {
-                var result = await _productService.GetAll();
+                var result = await _productService.GetAll(filterPaging);
 
                 return Ok(result);
             }

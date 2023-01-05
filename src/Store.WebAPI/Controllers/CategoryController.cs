@@ -5,6 +5,7 @@ using Store.Application.Common.Exceptions;
 using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
 using Store.Application.Models.Categories;
+using Store.Domain.Filters;
 
 namespace Store.WebAPI.Controllers
 {
@@ -84,11 +85,11 @@ namespace Store.WebAPI.Controllers
         /// <response code="500">Internal Server Error</response>
         [Authorize(Roles = IdentityRoles.Admin)]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery]FilterPagingDto filterPaging)
         {
             try
             {
-                var result = await _categoryService.GetAll();
+                var result = await _categoryService.GetAll(filterPaging);
 
                 return Ok(result);
             }
