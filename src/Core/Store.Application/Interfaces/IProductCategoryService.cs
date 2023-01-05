@@ -9,7 +9,7 @@ namespace Store.Application.Interfaces
 
         Task<CategoryDto> GetById(Guid id, CancellationToken cancellationToken = default);
 
-        Task<List<CategoryDto>> GetAll(FilterPagingDto paging, CancellationToken cancellationToken = default);
+        Task<List<CategoryDto>> GetPageItems(FilterPagingDto paging, CancellationToken cancellationToken = default);
 
         Task<CategoryDto> Update(Guid id, UpdateCategoryDto category, CancellationToken cancellationToken = default);
         Task Delete(Guid id, CancellationToken cancellationToken = default);

@@ -56,9 +56,9 @@ namespace Store.Application.Services
             return entity;
         }
 
-        public async Task<List<ProductDto>> GetAll(FilterPagingDto paging, CancellationToken cancellationToken = default)
+        public async Task<List<ProductDto>> GetPageItems(FilterPagingDto paging, CancellationToken cancellationToken = default)
         {
-            var result = await _productRepository.GetAll(paging, cancellationToken);
+            var result = await _productRepository.GetPageItems(paging, cancellationToken);
 
             var entity = _mapper.Map<List<ProductDto>>(result);
 

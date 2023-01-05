@@ -8,6 +8,6 @@ namespace Store.Domain.Interfaces
         Task<TModel> Create(TModel data, CancellationToken cancellationToken = default);
         Task<TModel> Update(TModel data, CancellationToken cancellationToken = default);
         Task Delete(TKey id, CancellationToken cancellationToken = default);
-        Task<List<TModel>> GetAll(FilterPagingDto paging = null, CancellationToken cancellationToken = default);
+        Task<List<TModel>> GetPageItems(FilterPagingDto paging = null, CancellationToken cancellationToken = default);
     }
 }

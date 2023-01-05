@@ -62,9 +62,9 @@ namespace Store.WebAPI.Controllers
         /// <response code="200">Success</response>
         [Authorize(Roles = IdentityRoles.Admin)]
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery]FilterPagingDto filterPaging)
+        public async Task<IActionResult> GetPageItems([FromQuery]FilterPagingDto filterPaging)
         {
-            var result = await _productService.GetAll(filterPaging);
+            var result = await _productService.GetPageItems(filterPaging);
 
             return Ok(result);
         }

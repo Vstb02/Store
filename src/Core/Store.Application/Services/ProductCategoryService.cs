@@ -47,10 +47,10 @@ namespace Store.Application.Services
             await _categoryRepository.Delete(id, cancellationToken);
         }
 
-        public async Task<List<CategoryDto>> GetAll(FilterPagingDto paging,
+        public async Task<List<CategoryDto>> GetPageItems(FilterPagingDto paging,
                                                     CancellationToken cancellationToken = default)
         {
-            var result = await _categoryRepository.GetAll(paging, cancellationToken);
+            var result = await _categoryRepository.GetPageItems(paging, cancellationToken);
 
             var entites = _mapper.Map<List<CategoryDto>>(result);
 

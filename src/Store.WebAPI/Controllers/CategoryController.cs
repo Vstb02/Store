@@ -64,9 +64,9 @@ namespace Store.WebAPI.Controllers
         /// <response code="500">Internal Server Error</response>
         [Authorize(Roles = IdentityRoles.Admin)]
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery]FilterPagingDto filterPaging)
+        public async Task<IActionResult> GetPageItems([FromQuery]FilterPagingDto filterPaging)
         {
-            var result = await _categoryService.GetAll(filterPaging);
+            var result = await _categoryService.GetPageItems(filterPaging);
 
             return Ok(result);
         }
