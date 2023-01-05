@@ -7,6 +7,7 @@ using Store.Application.Extensions;
 using Store.Domain.Identity;
 using Store.Infrastructure.Extensions;
 using Store.Infrastructure.Identity;
+using Store.WebAPI.Middlewares;
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -120,6 +121,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();

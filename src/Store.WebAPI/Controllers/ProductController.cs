@@ -33,22 +33,9 @@ namespace Store.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateProductDto request)
         {
-            try
-            { 
-                var result = await _productService.Create(request);
+            var result = await _productService.Create(request);
 
-                return Ok(result);
-            }
-            catch (DuplicateProductNameException ex)
-            {
-                _logger.LogError(ex, "Произошла ошибка при попытке создать товар");
-                return Conflict(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Произошла ошибка при попытке создать товар");
-                return StatusCode(500, "Произошла ошибка при попытке создать товар");
-            }
+            return Ok(result);
         }
 
         /// <summary>
@@ -62,17 +49,9 @@ namespace Store.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetById(Guid id)
         {
-            try
-            {
-                var result = await _productService.GetById(id);
+            var result = await _productService.GetById(id);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Произошла ошибка при попытке получить товар");
-                return StatusCode(500, "Произошла ошибка при попытке получить товар");
-            }
+            return Ok(result);
         }
 
         /// <summary>
@@ -85,17 +64,9 @@ namespace Store.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery]FilterPagingDto filterPaging)
         {
-            try
-            {
-                var result = await _productService.GetAll(filterPaging);
+            var result = await _productService.GetAll(filterPaging);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Произошла ошибка при попытке получить список товаров товар");
-                return StatusCode(500, "Произошла ошибка при попытке получить список товаров товар");
-            }
+            return Ok(result);
         }
 
         /// <summary>
@@ -109,17 +80,9 @@ namespace Store.WebAPI.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(Guid id)
         {
-            try
-            {
-                await _productService.Delete(id);
+            await _productService.Delete(id);
 
-                return Ok("Товар успешно удален");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "ФПроизошла ошибка при попытке удалить товар");
-                return StatusCode(500, "Произошла ошибка при попытке удалить товар");
-            }
+            return Ok("Товар успешно удален");
         }
 
         /// <summary>
@@ -133,22 +96,9 @@ namespace Store.WebAPI.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(Guid id, UpdateProductDto request)
         {
-            try
-            {
-                var result = await _productService.Update(id, request);
+            var result = await _productService.Update(id, request);
 
-                return Ok(result);
-            }
-            catch (DuplicateProductNameException ex)
-            {
-                _logger.LogError(ex, "Произошла ошибка при попытке обновить товар");
-                return Conflict(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Произошла ошибка при попытке обновить данные товара");
-                return StatusCode(500, "Произошла ошибка при попытке обновить данные товара");
-            }
+            return Ok(result);
         }
     }
 }

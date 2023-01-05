@@ -40,35 +40,27 @@ namespace Store.WebAPI.Controllers
         ]
         public async Task<IActionResult> Login(LoginUserRequestDto request)
         {
-            try
+            var userEntity = await _userManager.FindByNameAsync(request.UserName);
+
+            if (userEntity == null)
             {
-                var userEntity = await _userManager.FindByNameAsync(request.UserName);
-
-                if (userEntity == null)
-                {
-                    return StatusCode(403, "Пользователь не найден!");
-                }
-
-                var result = await _signInManager.PasswordSignInAsync(request.UserName, request.Password, request.RemeberMe, false);
-
-                if (!result.Succeeded)
-                {
-                    return StatusCode(403, "Неправильный логин или пароль");
-                }
-
-                var response = new LoginUserResponseDto()
-                {
-                    Id = Guid.Parse(userEntity.Id),
-                    AuthToken = await _tokenClaimsService.GetTokenAsync(userEntity)
-                };
-
-                return Ok(response);
+                return StatusCode(403, new { ErrorMessage = "Пользователь не найден!" });
             }
-            catch (Exception ex)
+
+            var result = await _signInManager.PasswordSignInAsync(request.UserName, request.Password, request.RemeberMe, false);
+
+            if (!result.Succeeded)
             {
-                _logger.LogError(ex, $"Ошибка при авторизации {request.UserName}");
-                return BadRequest("Ошибка авторизации");
+                return StatusCode(403, new { ErrorMessage = "Неправильный логин или пароль" });
             }
+
+            var response = new LoginUserResponseDto()
+            {
+                Id = Guid.Parse(userEntity.Id),
+                AuthToken = await _tokenClaimsService.GetTokenAsync(userEntity)
+            };
+
+            return Ok(response);
         }
     }
 }

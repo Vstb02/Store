@@ -31,22 +31,14 @@ namespace Store.WebAPI.Controllers
         [DisableRequestSizeLimit]
         public async Task<IActionResult> UploadFile([Required] IFormFile file)
         {
-            try
+            var fileExtension = FileHelper.GetFileExtension(file.ContentType);
+            if (fileExtension is null)
             {
-                var fileExtension = FileHelper.GetFileExtension(file.ContentType);
-                if (fileExtension is null)
-                {
-                    return BadRequest("Запрещеный тип файла");
-                }
-                var key = await _fileStorageService.Upload(dir, file.OpenReadStream(), fileExtension);
+                return BadRequest(new { ErrorMessage = "Запрещеный тип файла" });
+            }
+            var key = await _fileStorageService.Upload(dir, file.OpenReadStream(), fileExtension);
 
-                return Ok($"/{dir}/{key})");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Произошла ошибка при сохранении файла");
-                return StatusCode(500, "Произошла ошибка при сохранении файла");
-            }
+            return Ok($"/{dir}/{key})");
         }
 
         /// <summary>
@@ -59,17 +51,9 @@ namespace Store.WebAPI.Controllers
         [HttpDelete]
         public IActionResult Delete([Required] string fileUrl)
         {
-            try
-            {
-                _fileStorageService.HardDelete(fileUrl);
+            _fileStorageService.HardDelete(fileUrl);
 
-                return Ok("Файл успешно удален");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Произошла ошибка при удалении файла");
-                return StatusCode(500, "Произошла ошибка при удалении файла");
-            }
+            return Ok("Файл успешно удален");
         }
     }
 }

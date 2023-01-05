@@ -33,22 +33,9 @@ namespace Store.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateCategoryDto request)
         {
-            try
-            {
-                var result = await _categoryService.Create(request);
+            var result = await _categoryService.Create(request);
 
-                return Ok(result);
-            }
-            catch (DuplicateCategoryNameException ex)
-            {
-                _logger.LogError(ex, $"Произошла ошибка при попытке создать категорию с id {ex.DuplicateItemId}");
-                return StatusCode(409, "Произошла ошибка при попытке создать категорию");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Произошла ошибка при попытке создать категорию");
-                return Conflict(ex.Message);
-            }
+            return Ok(result);
         }
 
         /// <summary>
@@ -63,17 +50,9 @@ namespace Store.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetById(Guid id)
         {
-            try
-            {
-                var result = await _categoryService.GetById(id);
+            var result = await _categoryService.GetById(id);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Произошла ошибка при попытке получить категорию");
-                return StatusCode(500, "Произошла ошибка при попытке получить категорию");
-            }
+            return Ok(result);
         }
 
         /// <summary>
@@ -87,17 +66,9 @@ namespace Store.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery]FilterPagingDto filterPaging)
         {
-            try
-            {
-                var result = await _categoryService.GetAll(filterPaging);
+            var result = await _categoryService.GetAll(filterPaging);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Произошла ошибка при попытке получить список категорий");
-                return StatusCode(500, "Произошла ошибка при попытке получить список категорий");
-            }
+            return Ok(result);
         }
 
         /// <summary>
@@ -114,22 +85,9 @@ namespace Store.WebAPI.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(Guid id, UpdateCategoryDto request)
         {
-            try
-            {
-                var result = await _categoryService.Update(id, request);
+            var result = await _categoryService.Update(id, request);
 
-                return Ok(result);
-            }
-            catch (DuplicateCategoryNameException ex)
-            {
-                _logger.LogError(ex, $"Произошла ошибка при попытке обновить категорию с id {ex.DuplicateItemId}");
-                return Conflict(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Произошла ошибка при попытке обновить категорию");
-                return StatusCode(500, "Произошла ошибка при попытке обновить категорию");
-            }
+            return Ok(result);
         }
 
         /// <summary>
@@ -144,17 +102,9 @@ namespace Store.WebAPI.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(Guid id)
         {
-            try
-            {
-                await _categoryService.Delete(id);
+            await _categoryService.Delete(id);
 
-                return Ok("Категория успешно удалена");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Произошла ошибка при попытке удалить категорию");
-                return StatusCode(500, "Произошла ошибка при попытке удалить категорию");
-            }
+            return Ok("Категория успешно удалена");
         }
     }
 }
