@@ -40,14 +40,14 @@ namespace Store.WebAPI.Controllers
 
             if (userEntity == null)
             {
-                return StatusCode(403, new { ErrorMessage = "Пользователь не найден!" });
+                return Unauthorized(new { ErrorMessage = "Пользователь не найден" });
             }
 
             var result = await _signInManager.PasswordSignInAsync(request.UserName, request.Password, request.RemeberMe, false);
 
             if (!result.Succeeded)
             {
-                return StatusCode(403, new { ErrorMessage = "Неправильный логин или пароль" });
+                return Unauthorized(new { ErrorMessage = "Неправильный логин или пароль" });
             }
 
             var response = new LoginUserResponseDto()

@@ -34,15 +34,15 @@ namespace Store.WebAPI.Middlewares
             switch (exception)
             {
                 case DuplicateCategoryNameException categoryNameException:
-                    code = HttpStatusCode.Conflict;
+                    code = HttpStatusCode.BadRequest;
                     message = categoryNameException.Message;
                     break;
                 case DuplicateProductNameException categoryPorductException:
-                    code = HttpStatusCode.Conflict;
+                    code = HttpStatusCode.BadRequest;
                     message = categoryPorductException.Message;
                     break;
                 case ValidationException validationException:
-                    code = HttpStatusCode.Conflict;
+                    code = HttpStatusCode.BadRequest;
                     message = validationException.Message;
                     break;
             }
