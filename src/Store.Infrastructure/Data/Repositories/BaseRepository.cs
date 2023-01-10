@@ -11,9 +11,9 @@ namespace Store.Infrastructure.Data.Repositories
         where TModel : BaseEntity<TKey>
         where TKey : struct, IEquatable<TKey>
     {
-        private readonly DbContext _context;
+        private readonly TContext _context;
 
-        protected BaseRepository(DbContext context)
+        protected BaseRepository(TContext context)
         {
             _context = context;
         }
