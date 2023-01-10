@@ -1,5 +1,5 @@
 ﻿using Store.Application.Models.Categories;
-using Store.Domain.Filters;
+using Store.Application.Models.Filters;
 
 namespace Store.Application.Interfaces
 {

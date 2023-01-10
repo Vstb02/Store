@@ -23,7 +23,7 @@ namespace Store.Infrastructure.Data.Repositories
             return entity;
         }
 
-        public override async Task<List<Product>> GetPageItems(FilterPagingDto paging, CancellationToken cancellationToken = default)
+        public override async Task<List<Product>> GetPageItems(FilterPaging paging, CancellationToken cancellationToken = default)
         {
             var query = _context.Products.Include(x => x.ProductImages);
             var pagingQuery = ApplyPaging(query, paging);

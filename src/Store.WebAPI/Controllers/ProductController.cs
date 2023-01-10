@@ -1,11 +1,9 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Store.Application.Common.Exceptions;
 using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
+using Store.Application.Models.Filters;
 using Store.Application.Models.Products;
-using Store.Domain.Filters;
 
 namespace Store.WebAPI.Controllers
 {

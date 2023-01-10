@@ -35,7 +35,7 @@ namespace Store.Infrastructure.Data.Repositories
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public virtual async Task<List<TModel>> GetPageItems(FilterPagingDto paging,
+        public virtual async Task<List<TModel>> GetPageItems(FilterPaging paging,
             CancellationToken cancellationToken = default)
         {
             var query = _context.Set<TModel>();
@@ -45,9 +45,9 @@ namespace Store.Infrastructure.Data.Repositories
             return data;
         }
 
-        protected virtual IQueryable<TModel> ApplyPaging(IQueryable<TModel> source, FilterPagingDto paging)
+        protected virtual IQueryable<TModel> ApplyPaging(IQueryable<TModel> source, FilterPaging paging)
         {
-            paging ??= new FilterPagingDto { PageSize = 10 };
+            paging ??= new FilterPaging { PageSize = 10 };
             return source
                 .Skip(paging.PageNumber * paging.PageSize)
                 .Take(paging.PageSize);

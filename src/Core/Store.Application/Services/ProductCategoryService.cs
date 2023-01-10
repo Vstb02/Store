@@ -4,7 +4,7 @@ using SlugGenerator;
 using Store.Application.Common.Exceptions;
 using Store.Application.Interfaces;
 using Store.Application.Models.Categories;
-using Store.Application.Models.Products;
+using Store.Application.Models.Filters;
 using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Interfaces;
@@ -50,7 +50,9 @@ namespace Store.Application.Services
         public async Task<List<CategoryDto>> GetPageItems(FilterPagingDto paging,
                                                     CancellationToken cancellationToken = default)
         {
-            var result = await _categoryRepository.GetPageItems(paging, cancellationToken);
+            var filterPaging = _mapper.Map<FilterPaging>(paging);
+
+            var result = await _categoryRepository.GetPageItems(filterPaging, cancellationToken);
 
             var entites = _mapper.Map<List<CategoryDto>>(result);
 

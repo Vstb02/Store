@@ -1,6 +1,5 @@
-﻿using Store.Application.Models.Products;
-using Store.Domain.Entities;
-using Store.Domain.Filters;
+﻿using Store.Application.Models.Filters;
+using Store.Application.Models.Products;
 
 namespace Store.Application.Interfaces
 {

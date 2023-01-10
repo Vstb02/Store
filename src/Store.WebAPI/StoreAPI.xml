@@ -34,7 +34,7 @@
             <response code="400">Bad Request</response>
             <response code="500">Internal Server Error</response>
         </member>
-        <member name="M:Store.WebAPI.Controllers.CategoryController.GetPageItems(Store.Domain.Filters.FilterPagingDto)">
+        <member name="M:Store.WebAPI.Controllers.CategoryController.GetPageItems(Store.Application.Models.Filters.FilterPagingDto)">
             <summary>
             Получение списка категорий
             </summary>
@@ -102,7 +102,7 @@
             <response code="500">Internal Server Error</response>
             <response code="200">Success</response>
         </member>
-        <member name="M:Store.WebAPI.Controllers.ProductController.GetPageItems(Store.Domain.Filters.FilterPagingDto)">
+        <member name="M:Store.WebAPI.Controllers.ProductController.GetPageItems(Store.Application.Models.Filters.FilterPagingDto)">
             <summary>
             Получение списка продуктов
             </summary>
