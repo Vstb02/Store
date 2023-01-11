@@ -27,6 +27,7 @@ namespace Store.Application.Services
             var key = Encoding.ASCII.GetBytes(_configuration.GetSection("JWT:SecurityKey").Value);
             var roles = await _userManager.GetRolesAsync(user);
             var claims = new List<Claim> { 
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Aud, _configuration["Jwt:Audience"]),
                 new Claim(JwtRegisteredClaimNames.Iss, _configuration["Jwt:Issuer"])
