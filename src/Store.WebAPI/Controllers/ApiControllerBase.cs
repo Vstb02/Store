@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Store.Domain.Identity;
+using System.Security.Claims;
 
 namespace Store.WebAPI.Controllers
 {
@@ -6,5 +9,8 @@ namespace Store.WebAPI.Controllers
     [ApiController]
     public class ApiControllerBase : ControllerBase
     {
+        internal String UserId => !User.Identity.IsAuthenticated
+            ? String.Empty
+            : User.FindFirst(ClaimTypes.NameIdentifier).Value;
     }
 }

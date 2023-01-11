@@ -1,22 +1,21 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
 using Store.Application.Models.Filters;
 using Store.Application.Models.Products;
+using Store.Domain.Identity;
 
 namespace Store.WebAPI.Controllers
 {
     public class ProductController : ApiControllerBase
     {
         private readonly IProductService _productService;
-        private readonly ILogger<ProductController> _logger;
 
-        public ProductController(IProductService productService,
-                                 ILogger<ProductController> logger)
+        public ProductController(IProductService productService)
         {
             _productService = productService;
-            _logger = logger;
         }
 
         /// <summary>

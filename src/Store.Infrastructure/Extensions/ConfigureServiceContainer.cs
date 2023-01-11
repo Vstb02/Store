@@ -34,6 +34,7 @@ namespace Store.Infrastructure.Extensions
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
+            services.AddScoped<IBasketService, BasketService>();
         }
     }
 }

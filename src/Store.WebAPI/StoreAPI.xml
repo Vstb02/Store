@@ -14,6 +14,34 @@
             <response code="403">Forbidden</response>
             <response code="200">Success</response>
         </member>
+        <member name="M:Store.WebAPI.Controllers.BasketController.AddItemToBasket(System.Guid)">
+            <summary>
+            Добавление товара в корзину пользователя
+            </summary>
+            <param name="productId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Store.WebAPI.Controllers.BasketController.GetBuyerBasket">
+            <summary>
+            Получение корзины пользователя
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Store.WebAPI.Controllers.BasketController.SetQuantity(System.Guid,System.Int32)">
+            <summary>
+            Изменение количества товара в корзине
+            </summary>
+            <param name="productId"></param>
+            <param name="quantity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Store.WebAPI.Controllers.BasketController.DeleteItemFormBasket(System.Guid)">
+            <summary>
+            Удаление товара из корзины
+            </summary>
+            <param name="productId"></param>
+            <returns></returns>
+        </member>
         <member name="M:Store.WebAPI.Controllers.CategoryController.Create(Store.Application.Models.Categories.CreateCategoryDto)">
             <summary>
             Создание категории

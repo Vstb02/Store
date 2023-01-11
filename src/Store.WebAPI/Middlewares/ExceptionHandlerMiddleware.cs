@@ -41,6 +41,14 @@ namespace Store.WebAPI.Middlewares
                     code = HttpStatusCode.BadRequest;
                     message = categoryPorductException.Message;
                     break;
+                case NotFoundException notFoundException:
+                    code = HttpStatusCode.NotFound;
+                    message = notFoundException.Message;
+                    break;
+                case DuplicateBasketItemException duplicateBasketItemException:
+                    code = HttpStatusCode.BadRequest;
+                    message = duplicateBasketItemException.Message;
+                    break;
                 case ValidationException validationException:
                     code = HttpStatusCode.BadRequest;
                     message = validationException.Message;
