@@ -41,6 +41,10 @@ namespace Store.Application.Models.Products
         [Required(ErrorMessage = "Поле «{0}» не заполнено")]
         public Guid CategoryId { get; init; }
 
+        [Display(Name = "Компания")]
+        [Required(ErrorMessage = "Поле «{0}» не заполнено")]
+        public Guid BrandId { get; set; }
+
         public CreateProductDto()
         {
             ProductImages = new List<ProductImageDto>();

@@ -31,10 +31,12 @@ namespace Store.Infrastructure.Extensions
             services.AddScoped<IProductImageRepository, ProductImageRepository>();
             services.AddScoped<IBasketItemRepository, BasketItemRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IBrandRepository, BrandRepository>();
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
             services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<IBrandService, BrandService>();
         }
     }
 }

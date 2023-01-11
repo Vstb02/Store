@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Store.Application.Models.Brands;
 using Store.Application.Models.Products;
 using Store.Domain.Entities;
 
@@ -21,8 +22,11 @@ namespace Store.Application.Common.MappingProfile
             CreateMap<ProductDto, Product>()
                 .ForMember(x => x.ProductImages, opt => opt.MapFrom(src => src.ProductImages));
 
+            CreateMap<Brand, BrandDto>();
+
             CreateMap<Product, ProductDto>()
-                .ForMember(x => x.ProductImages, opt => opt.MapFrom(src => src.ProductImages));
+                .ForMember(x => x.ProductImages, opt => opt.MapFrom(src => src.ProductImages))
+                .ForMember(x => x.Brand, opt => opt.MapFrom(src => src.Brand));
         }
     }
 }

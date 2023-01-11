@@ -25,7 +25,8 @@ namespace Store.Infrastructure.Data.Repositories
 
         public override async Task<List<Product>> GetPageItems(FilterPaging paging, CancellationToken cancellationToken = default)
         {
-            var query = _context.Products.Include(x => x.ProductImages);
+            var query = _context.Products.Include(x => x.ProductImages)
+                                         .Include(x => x.Brand);
             var pagingQuery = ApplyPaging(query, paging);
             var data = await pagingQuery.ToListAsync(cancellationToken);
 

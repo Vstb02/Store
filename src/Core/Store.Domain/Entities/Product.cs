@@ -16,5 +16,7 @@ namespace Store.Domain.Entities
         public ProductCategory Category { get; set; }
         public Guid CategoryId { get; set; }
         public List<BasketItem> BasketItems { get; set; }
+        public Brand Brand { get; set; }
+        public Guid BrandId { get; set; }
     }
 }

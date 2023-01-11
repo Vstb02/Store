@@ -12,7 +12,7 @@ using Store.Infrastructure.Data.Contexts;
 namespace Store.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221225151923_0001")]
+    [Migration("20230111203534_0001")]
     partial class _0001
     {
         /// <inheritdoc />
@@ -80,10 +80,35 @@ namespace Store.Infrastructure.Data.Migrations
                     b.ToTable("BasketItems");
                 });
 
+            modelBuilder.Entity("Store.Domain.Entities.Brand", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brands");
+                });
+
             modelBuilder.Entity("Store.Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BrandId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CategoryId")
@@ -128,6 +153,8 @@ namespace Store.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
 
                     b.HasIndex("CategoryId");
 
@@ -218,11 +245,19 @@ namespace Store.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Store.Domain.Entities.Product", b =>
                 {
+                    b.HasOne("Store.Domain.Entities.Brand", "Brand")
+                        .WithMany("Products")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Store.Domain.Entities.ProductCategory", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Brand");
 
                     b.Navigation("Category");
                 });
@@ -241,6 +276,11 @@ namespace Store.Infrastructure.Data.Migrations
             modelBuilder.Entity("Store.Domain.Entities.Basket", b =>
                 {
                     b.Navigation("BasketItems");
+                });
+
+            modelBuilder.Entity("Store.Domain.Entities.Brand", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Store.Domain.Entities.Product", b =>

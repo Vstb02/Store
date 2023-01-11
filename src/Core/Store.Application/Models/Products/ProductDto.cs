@@ -1,4 +1,5 @@
-﻿using Store.Domain.Enums;
+﻿using Store.Application.Models.Brands;
+using Store.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Store.Application.Models.Products
@@ -20,5 +21,6 @@ namespace Store.Application.Models.Products
         public int Quantity { get; set; }
         [Required]
         public ProductStatus Status { get; set; }
+        public BrandDto Brand { get; set; }
     }
 }
