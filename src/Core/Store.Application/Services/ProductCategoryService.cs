@@ -48,11 +48,12 @@ namespace Store.Application.Services
         }
 
         public async Task<List<CategoryDto>> GetPageItems(FilterPagingDto paging,
-                                                    CancellationToken cancellationToken = default)
+                                                          BaseFilter filter = null,
+                                                          CancellationToken cancellationToken = default)
         {
             var filterPaging = _mapper.Map<FilterPaging>(paging);
 
-            var result = await _categoryRepository.GetPageItems(filterPaging, cancellationToken);
+            var result = await _categoryRepository.GetPageItems(filterPaging, filter, cancellationToken);
 
             var entites = _mapper.Map<List<CategoryDto>>(result);
 

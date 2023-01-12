@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store.Domain.Entities;
+using Store.Domain.Filters;
 
 namespace Store.Domain.Interfaces
 {
-    public interface IBasketItemRepository : IBaseRepository<DbContext, BasketItem, Guid>
+    public interface IBasketItemRepository : IBaseRepository<DbContext, BaseFilter, BasketItem, Guid>
     {
     }
 }

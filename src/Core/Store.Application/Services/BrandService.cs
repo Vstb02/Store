@@ -43,11 +43,11 @@ namespace Store.Application.Services
             await _brandRepository.Delete(id, cancellationToken);
         }
 
-        public async Task<List<BrandDto>> GetPageItems(FilterPagingDto paging, CancellationToken cancellationToken = default)
+        public async Task<List<BrandDto>> GetPageItems(FilterPagingDto paging, BaseFilter filter = null, CancellationToken cancellationToken = default)
         {
             var filterPaging = _mapper.Map<FilterPaging>(paging);
 
-            var result = await _brandRepository.GetPageItems(filterPaging, cancellationToken);
+            var result = await _brandRepository.GetPageItems(filterPaging, filter, cancellationToken);
 
             var entity = _mapper.Map<List<BrandDto>>(result);
 

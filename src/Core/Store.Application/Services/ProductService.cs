@@ -8,6 +8,7 @@ using Store.Application.Models.Filters;
 using Store.Application.Models.Products;
 using Store.Domain.Entities;
 using Store.Domain.Filters;
+using Store.Domain.Filters.Products;
 using Store.Domain.Interfaces;
 using System.Data;
 
@@ -57,11 +58,14 @@ namespace Store.Application.Services
             return entity;
         }
 
-        public async Task<List<ProductDto>> GetPageItems(FilterPagingDto paging, CancellationToken cancellationToken = default)
+        public async Task<List<ProductDto>> GetPageItems(FilterPagingDto paging,
+                                                         ProductFilterDto filter = null,
+                                                         CancellationToken cancellationToken = default)
         {
             var filterPaging = _mapper.Map<FilterPaging>(paging);
+            var filterEntity = _mapper.Map<ProductFilter>(filter);
 
-            var result = await _productRepository.GetPageItems(filterPaging, cancellationToken);
+            var result = await _productRepository.GetPageItems(filterPaging, filterEntity, cancellationToken);
 
             var entity = _mapper.Map<List<ProductDto>>(result);
 

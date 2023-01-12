@@ -2,12 +2,12 @@
 using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Interfaces;
-using Store.Infrastructure.Data.Contexts;
 
 namespace Store.Infrastructure.Data.Repositories
 {
-    public abstract class BaseRepository<TContext, TModel, TKey> : IBaseRepository<TContext, TModel, TKey>
+    public abstract class BaseRepository<TContext, TFilter, TModel, TKey> : IBaseRepository<TContext, TFilter, TModel, TKey>
         where TContext : DbContext
+        where TFilter : BaseFilter
         where TModel : BaseEntity<TKey>
         where TKey : struct, IEquatable<TKey>
     {
@@ -36,12 +36,18 @@ namespace Store.Infrastructure.Data.Repositories
         }
 
         public virtual async Task<List<TModel>> GetPageItems(FilterPaging paging,
-            CancellationToken cancellationToken = default)
+                                                             TFilter filter = null,
+                                                             CancellationToken cancellationToken = default)
         {
-            var query = _context.Set<TModel>();
-            var pagingQuery = ApplyPaging(query, paging);
+            var query = _context.Set<TModel>().AsNoTracking();
+            query = ApplyPaging(query, paging);
 
-            var data = await pagingQuery.ToListAsync(cancellationToken);
+            if (filter is not null)
+            {
+                query = ApplyFilter(query, filter);
+            }
+
+            var data = await query.ToListAsync(cancellationToken);
             return data;
         }
 
@@ -51,6 +57,11 @@ namespace Store.Infrastructure.Data.Repositories
             return source
                 .Skip(paging.PageNumber * paging.PageSize)
                 .Take(paging.PageSize);
+        }
+
+        protected virtual IQueryable<TModel> ApplyFilter(IQueryable<TModel> result, TFilter filter)
+        {
+            return result;
         }
 
         public async Task<TModel> GetById(TKey id, CancellationToken cancellationToken = default)

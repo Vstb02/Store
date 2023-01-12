@@ -2,15 +2,11 @@
 using Store.Domain.Entities;
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Contexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Store.Domain.Filters;
 
 namespace Store.Infrastructure.Data.Repositories
 {
-    public class BrandRepository : BaseRepository<ApplicationDbContext, Brand, Guid>,
+    public class BrandRepository : BaseRepository<ApplicationDbContext, BaseFilter, Brand, Guid>,
         IBrandRepository
     {
         private readonly ApplicationDbContext _context;

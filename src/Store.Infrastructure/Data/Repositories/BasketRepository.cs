@@ -2,10 +2,11 @@
 using Store.Domain.Entities;
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Contexts;
+using Store.Domain.Filters;
 
 namespace Store.Infrastructure.Data.Repositories
 {
-    public class BasketRepository : BaseRepository<ApplicationDbContext, Basket, Guid>,
+    public class BasketRepository : BaseRepository<ApplicationDbContext, BaseFilter, Basket, Guid>,
         IBasketRepository
     {
         private readonly ApplicationDbContext _context;

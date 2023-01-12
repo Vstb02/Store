@@ -1,14 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Store.Domain.Filters;
 
 namespace Store.Domain.Interfaces
 {
-    public interface IBrandRepository : IBaseRepository<DbContext, Brand, Guid>
+    public interface IBrandRepository : IBaseRepository<DbContext, BaseFilter, Brand, Guid>
     {
         Task<Brand> GetByName(string name, CancellationToken cancellationToken = default);
     }

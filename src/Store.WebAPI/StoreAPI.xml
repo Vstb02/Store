@@ -181,7 +181,7 @@
             <response code="500">Internal Server Error</response>
             <response code="200">Success</response>
         </member>
-        <member name="M:Store.WebAPI.Controllers.ProductController.GetPageItems(Store.Application.Models.Filters.FilterPagingDto)">
+        <member name="M:Store.WebAPI.Controllers.ProductController.GetPageItems(Store.Application.Models.Filters.FilterPagingDto,Store.Application.Models.Filters.ProductFilterDto)">
             <summary>
             Получение списка продуктов
             </summary>
