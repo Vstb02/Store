@@ -144,6 +144,36 @@
             <response code="200">Success</response>
             <response code="500">Internal Server Error</response>
         </member>
+        <member name="M:Store.WebAPI.Controllers.FavoriteController.GetPageItems(Store.Application.Models.Filters.FilterPagingDto)">
+            <summary>
+            Получение списка товаров в избранном
+            </summary>
+            <returns>List FavoriteItemDto</returns>
+            <response code="200">Success</response>
+            <response code="400">Bad Request</response>
+            <response code="404">Not Found</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:Store.WebAPI.Controllers.FavoriteController.AddItemToBasket(System.Guid)">
+            <summary>
+            Добавление товара в избранное
+            </summary>
+            <returns>FavoriteItemDto</returns>
+            <response code="200">Success</response>
+            <response code="400">Bad Request</response>
+            <response code="404">Not Found</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:Store.WebAPI.Controllers.FavoriteController.RemoveItemToBasket(System.Guid)">
+            <summary>
+            Удаление товара из избранного
+            </summary>
+            <returns></returns>
+            <response code="200">Success</response>
+            <response code="400">Bad Request</response>
+            <response code="404">Not Found</response>
+            <response code="500">Internal Server Error</response>
+        </member>
         <member name="M:Store.WebAPI.Controllers.FileStorageController.UploadFile(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             Сохранение файла
