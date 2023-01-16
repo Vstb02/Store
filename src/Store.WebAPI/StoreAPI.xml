@@ -144,6 +144,40 @@
             <response code="200">Success</response>
             <response code="500">Internal Server Error</response>
         </member>
+        <member name="M:Store.WebAPI.Controllers.CommentController.AddComment(System.Guid,Store.Application.Models.Comments.CreateCommentDto)">
+            <summary>
+            Добавление комментария к товару
+            </summary>
+            <param name="productId"></param>
+            <param name="commentDto"></param>
+            <returns>CommentItemDto</returns>
+            <response code="200">Success</response>
+            <response code="400">Bad Request</response>
+            <response code="404">Not Found</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:Store.WebAPI.Controllers.CommentController.DeleteComment(System.Guid)">
+            <summary>
+            Удаление комментария
+            </summary>
+            <param name="commentId"></param>
+            <returns></returns>
+            <response code="200">Success</response>
+            <response code="400">Bad Request</response>
+            <response code="404">Not Found</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:Store.WebAPI.Controllers.CommentController.GetProductsComment(Store.Application.Models.Filters.FilterPagingDto,Store.Application.Models.Filters.CommentFilterDto)">
+            <summary>
+            Получение списка комментариев к товару
+            </summary>
+            <param name="paging"></param>
+            <param name="filter"></param>
+            <returns>List CommentItemDto</returns>
+            <response code="200">Success</response>
+            <response code="400">Bad Request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
         <member name="M:Store.WebAPI.Controllers.FavoriteController.GetPageItems(Store.Application.Models.Filters.FilterPagingDto)">
             <summary>
             Получение списка товаров в избранном
