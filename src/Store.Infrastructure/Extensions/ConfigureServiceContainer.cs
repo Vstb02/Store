@@ -34,6 +34,7 @@ namespace Store.Infrastructure.Extensions
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<IFavoriteRepository, FavoriteRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IRatingRepository, RatingRepository>();
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
@@ -41,6 +42,7 @@ namespace Store.Infrastructure.Extensions
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<IFavoriteService, FavoriteService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IRatingService, RatingService>();
         }
     }
 }

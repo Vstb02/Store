@@ -271,5 +271,37 @@
             <response code="500">Internal Server Error</response>
             <response code="200">Success</response>
         </member>
+        <member name="M:Store.WebAPI.Controllers.RatingController.GetProductRating(System.Guid)">
+            <summary>
+            Получение рейтинга товара
+            </summary>
+            <param name="productId"></param>
+            <returns>ProductRatingDto</returns>
+            <response code="200">Success</response>
+            <response code="404">NotFound</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:Store.WebAPI.Controllers.RatingController.AddRating(Store.Application.Models.Ratings.CreateRatingDto,System.Guid)">
+            <summary>
+            Добавление рейтинга для товара
+            </summary>
+            <param name="rating"></param>
+            <param name="productId"></param>
+            <returns>RatingDto</returns>
+            <response code="200">Success</response>
+            <response code="404">NotFound</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:Store.WebAPI.Controllers.RatingController.Setrating(Store.Application.Models.Ratings.CreateRatingDto,System.Guid)">
+            <summary>
+            Изменение рейтинга товара
+            </summary>
+            <param name="rating"></param>
+            <param name="ratingId"></param>
+            <returns>RatingDto</returns>
+            <response code="200">Success</response>
+            <response code="404">NotFound</response>
+            <response code="500">Internal Server Error</response>
+        </member>
     </members>
 </doc>

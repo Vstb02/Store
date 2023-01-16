@@ -25,6 +25,7 @@ namespace Store.Infrastructure.Data.Contexts
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -37,6 +38,7 @@ namespace Store.Infrastructure.Data.Contexts
             builder.ApplyConfiguration(new BrandConfiguration());
             builder.ApplyConfiguration(new FavoriteConfiguration());
             builder.ApplyConfiguration(new CommentConfiguration());
+            builder.ApplyConfiguration(new RatingConfiguration());
         }
     }
 }
