@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace Store.Application.Models.Contacts
+{
+    public record class UpdateContactDto
+    {
+        [Display(Name = "Имя")]
+        [Required(ErrorMessage = "Поле «{0}» не заполнено")]
+        [MaxLength(50, ErrorMessage = "Поле «{0}» превысило максимально допустимое значение в «{1}» символов")]
+        public string Name { get; init; }
+        [Display(Name = "Фамилия")]
+        [Required(ErrorMessage = "Поле «{0}» не заполнено")]
+        [MaxLength(50, ErrorMessage = "Поле «{0}» превысило максимально допустимое значение в «{1}» символов")]
+        public string Surname { get; init; }
+        [Display(Name = "Отчество")]
+        [Required(ErrorMessage = "Поле «{0}» не заполнено")]
+        [MaxLength(50, ErrorMessage = "Поле «{0}» превысило максимально допустимое значение в «{1}» символов")]
+        public string Patronymic { get; init; }
+        [Display(Name = "Номер телефона")]
+        [Required(ErrorMessage = "Поле «{0}» не заполнено")]
+        [MaxLength(20, ErrorMessage = "Поле «{0}» превысило максимально допустимое значение в «{1}» символов")]
+        [RegularExpression("[0-9]", ErrorMessage = "Поле «{0}» может состоять только из цифр")]
+
+        public string PhoneNumber { get; init; }
+    }
+}

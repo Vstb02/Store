@@ -35,6 +35,10 @@ namespace Store.Infrastructure.Extensions
             services.AddScoped<IFavoriteRepository, FavoriteRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IContactRepository, ContactRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
@@ -43,6 +47,9 @@ namespace Store.Infrastructure.Extensions
             services.AddScoped<IFavoriteService, FavoriteService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IRatingService, RatingService>();
+            services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<IContactService, ContactService>();
+            services.AddScoped<IOrderService, OrderService>();
         }
     }
 }

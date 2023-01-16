@@ -21,5 +21,6 @@ namespace Store.Domain.Entities
         public List<Favorite> Favorites { get; set; }
         public List<Comment> Comments { get; set; }
         public List<Rating> Ratings { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
     }
 }
