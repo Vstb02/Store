@@ -33,12 +33,14 @@ namespace Store.Infrastructure.Extensions
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<IFavoriteService, FavoriteService>();
+            services.AddScoped<ICommentService, CommentService>();
         }
     }
 }

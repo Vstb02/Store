@@ -19,5 +19,6 @@ namespace Store.Domain.Entities
         public Brand Brand { get; set; }
         public Guid BrandId { get; set; }
         public List<Favorite> Favorites { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }
