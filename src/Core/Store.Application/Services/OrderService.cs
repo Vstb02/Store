@@ -53,6 +53,11 @@ namespace Store.Application.Services
 
             var basketItems = exsistingBasket.BasketItems;
 
+            if (basketItems.Count == 0)
+            {
+                throw new EmptyBasketException();
+            }
+
             var items = _mapper.Map<List<OrderItem>>(basketItems);
 
             var order = new Order()
@@ -64,7 +69,11 @@ namespace Store.Application.Services
                 OrderStatus = OrderStatus.inProcessing,
             };
 
-            var result = await _orderRepository.Create(order, cancellationToken);
+            await _orderRepository.Create(order, cancellationToken);
+
+            exsistingBasket.BasketItems.Clear();
+
+            await _basketRepository.Update(exsistingBasket);
         }
 
         public async Task ChangeStatusOrder(Guid orderId,

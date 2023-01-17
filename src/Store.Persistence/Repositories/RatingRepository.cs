@@ -24,5 +24,13 @@ namespace Store.Persistence.Repositories
 
             return result;
         }
+
+        public async Task<Rating> GetByBuyerId(string buyerId, CancellationToken cancellationToken = default)
+        {
+            var result = await _context.Ratings.FirstOrDefaultAsync(x => x.AuthorId.Equals(buyerId),
+                                                                    cancellationToken);
+
+            return result;
+        }
     }
 }

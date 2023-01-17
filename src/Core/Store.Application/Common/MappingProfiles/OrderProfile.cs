@@ -7,7 +7,8 @@ namespace Store.Application.Common.MappingProfiles
     {
         public OrderProfile()
         {
-            CreateMap<BasketItem, OrderItem>();
+            CreateMap<BasketItem, OrderItem>()
+                .ForMember(x => x.Id, opt => opt.Ignore());
         }
     }
 }

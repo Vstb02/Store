@@ -4,7 +4,7 @@ using Store.Application.Interfaces;
 using Store.Application.Models.Baskets;
 using Store.Domain.Entities;
 using Store.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using Store.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Store.Application.Services
@@ -50,7 +50,21 @@ namespace Store.Application.Services
                 throw new NotFoundException("Товар не найден");
             }
 
+            if (existingProduct.Status is ProductStatus.outStock)
+            {
+                throw new OutOfStockException();
+            }
+
             var basketItem = _mapper.Map<BasketItem>(existingProduct);
+
+            existingProduct.Quantity--;
+
+            if (existingProduct.Quantity == 0)
+            {
+                existingProduct.Status = ProductStatus.outStock;
+            }
+
+            await _productRepository.Update(existingProduct);
 
             basketItem.BasketId = existingBasket.Id;
             basketItem.ProductId = existingProduct.Id;
