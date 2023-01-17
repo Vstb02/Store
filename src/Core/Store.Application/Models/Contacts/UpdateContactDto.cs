@@ -4,6 +4,7 @@ namespace Store.Application.Models.Contacts
 {
     public record class UpdateContactDto
     {
+        public Guid Id { get; set; }
         [Display(Name = "Имя")]
         [Required(ErrorMessage = "Поле «{0}» не заполнено")]
         [MaxLength(50, ErrorMessage = "Поле «{0}» превысило максимально допустимое значение в «{1}» символов")]

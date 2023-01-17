@@ -4,6 +4,7 @@ namespace Store.Application.Models.Addresses
 {
     public record class UpdateAddressDto
     {
+        public Guid Id { get; set; }
         [Display(Name = "Страна")]
         [Required(ErrorMessage = "Поле «{0}» не заполнено")]
         [MaxLength(50, ErrorMessage = "Поле «{0}» превысило максимально допустимое значение в «{1}» символов")]
