@@ -7,6 +7,6 @@ namespace Store.Domain.Interfaces
 {
     public interface IRatingRepository : IBaseRepository<DbContext, BaseFilter, Rating, Guid>
     {
-        Task<List<Rating>> GetByProductId(Guid productId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<Rating>> GetByProductId(Guid productId, CancellationToken cancellationToken = default);
     }
 }

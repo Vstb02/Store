@@ -22,7 +22,7 @@ namespace Store.Infrastructure.Data.Repositories
             _context = context;
         }
 
-        public async Task<List<Rating>> GetByProductId(Guid productId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Rating>> GetByProductId(Guid productId, CancellationToken cancellationToken = default)
         {
             var result = await _context.Ratings.Where(x => x.ProductId.Equals(productId)).ToListAsync();
 

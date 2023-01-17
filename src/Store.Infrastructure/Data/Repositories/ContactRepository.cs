@@ -17,7 +17,7 @@ namespace Store.Infrastructure.Data.Repositories
             _context = context;
         }
 
-        public async Task<List<Contact>> GetContactsByBuyerId(string buyerId,
+        public async Task<IEnumerable<Contact>> GetContactsByBuyerId(string buyerId,
                                            CancellationToken cancellationToken = default)
         {
             var result = await _context.Contacts.Where(x => x.BuyerId.Equals(buyerId))

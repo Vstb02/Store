@@ -26,7 +26,7 @@ namespace Store.Infrastructure.Data.Repositories
             return entity;
         }
 
-        public override async Task<List<Product>> GetPageItems(FilterPaging paging,
+        public override async Task<IEnumerable<Product>> GetPageItems(FilterPaging paging,
                                                                ProductFilter filter,
                                                                CancellationToken cancellationToken = default)
         {

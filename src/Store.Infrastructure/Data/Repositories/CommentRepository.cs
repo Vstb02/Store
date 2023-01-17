@@ -27,7 +27,7 @@ namespace Store.Infrastructure.Data.Repositories
             return result;
         }
 
-        public override async Task<List<Comment>> GetPageItems(FilterPaging paging,
+        public override async Task<IEnumerable<Comment>> GetPageItems(FilterPaging paging,
                                                                CommentFilter filter,
                                                                CancellationToken cancellationToken = default)
         {

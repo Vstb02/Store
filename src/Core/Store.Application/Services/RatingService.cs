@@ -39,7 +39,7 @@ namespace Store.Application.Services
 
             var productRatings = await _ratingRepository.GetByProductId(productId, cancellationToken);
 
-            var totalRating = Math.Round((double)productRatings.Sum(x => x.Value) / productRatings.Count, 1);
+            var totalRating = Math.Round((double)productRatings.Sum(x => x.Value) / productRatings.Count(), 1);
 
             var result = new ProductRatingDto { ProductId = productId, TotalValue = totalRating };
 

@@ -11,7 +11,7 @@ namespace Store.Domain.Interfaces
 {
     public interface IContactRepository : IBaseRepository<DbContext, BaseFilter, Contact, Guid>
     {
-        Task<List<Contact>> GetContactsByBuyerId(string buyerId,
+        Task<IEnumerable<Contact>> GetContactsByBuyerId(string buyerId,
                                                   CancellationToken cancellationToken = default);
     }
 }
