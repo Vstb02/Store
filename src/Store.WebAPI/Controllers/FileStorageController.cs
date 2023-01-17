@@ -2,10 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
-using Store.WebAPI.Helpers;
-using Store.WebAPI.Models;
 using System.ComponentModel.DataAnnotations;
-using System.Data;
+using Store.Application.Common.Helpers;
 
 namespace Store.WebAPI.Controllers
 {

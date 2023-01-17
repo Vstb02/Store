@@ -1,4 +1,4 @@
-﻿namespace Store.WebAPI.Helpers
+﻿namespace Store.Application.Common.Helpers
 {
     public class FileHelper
     {
