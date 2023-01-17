@@ -32,15 +32,16 @@ namespace Store.WebAPI.Controllers
         /// <summary>
         /// Добавление товара в избранное
         /// </summary>
+        /// <param name="id"></param>
         /// <returns>FavoriteItemDto</returns>
         /// <response code="200">Success</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">Not Found</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpPost]
-        public async Task<IActionResult> AddItemToBasket([FromQuery] Guid productId)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> AddItemToBasket(Guid id)
         {
-            var result = await _favoriteService.AddItemToFavorite(UserId, productId);
+            var result = await _favoriteService.AddItemToFavorite(UserId, id);
 
             return Ok(result);
         }
@@ -48,15 +49,16 @@ namespace Store.WebAPI.Controllers
         /// <summary>
         /// Удаление товара из избранного
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
         /// <response code="200">Success</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">Not Found</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpPost]
-        public async Task<IActionResult> RemoveItemToBasket([FromQuery] Guid productId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveItemToBasket(Guid id)
         {
-            await _favoriteService.RemoveItemToFavorite(UserId, productId);
+            await _favoriteService.RemoveItemToFavorite(UserId, id);
 
             return Ok();
         }

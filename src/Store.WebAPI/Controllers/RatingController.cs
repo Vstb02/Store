@@ -18,15 +18,15 @@ namespace Store.WebAPI.Controllers
         /// <summary>
         /// Получение рейтинга товара
         /// </summary>
-        /// <param name="productId"></param>
+        /// <param name="id"></param>
         /// <returns>ProductRatingDto</returns>
         /// <response code="200">Success</response>
         /// <response code="404">NotFound</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpGet]
-        public async Task<IActionResult> GetProductRating(Guid productId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProductRating(Guid id)
         {
-            var result = await _ratingService.GetProductRating(productId);
+            var result = await _ratingService.GetProductRating(id);
 
             return Ok(result);
         }
@@ -34,16 +34,16 @@ namespace Store.WebAPI.Controllers
         /// <summary>
         /// Добавление рейтинга для товара
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="rating"></param>
-        /// <param name="productId"></param>
         /// <returns>RatingDto</returns>
         /// <response code="200">Success</response>
         /// <response code="404">NotFound</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpPost]
-        public async Task<IActionResult> AddRating(CreateRatingDto rating, Guid productId)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> AddRating(Guid id, [FromBody] CreateRatingDto rating)
         {
-            var result = await _ratingService.AddRating(UserId, rating, productId);
+            var result = await _ratingService.AddRating(UserId, rating, id);
 
             return Ok(result);
         }
@@ -51,16 +51,16 @@ namespace Store.WebAPI.Controllers
         /// <summary>
         /// Изменение рейтинга товара
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="rating"></param>
-        /// <param name="ratingId"></param>
         /// <returns>RatingDto</returns>
         /// <response code="200">Success</response>
         /// <response code="404">NotFound</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpPost]
-        public async Task<IActionResult> Setrating(CreateRatingDto rating, Guid ratingId)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> SetRating(Guid id, CreateRatingDto rating)
         {
-            var result = await _ratingService.SetRating(UserId, rating, ratingId);
+            var result = await _ratingService.SetRating(UserId, rating, id);
 
             return Ok(result);
         }

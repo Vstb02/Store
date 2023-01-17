@@ -16,7 +16,6 @@ namespace Store.WebAPI.Controllers
         /// <summary>
         /// Создание заказа
         /// </summary>
-        /// <param name="basketId"></param>
         /// <param name="addressId"></param>
         /// <param name="contactId"></param>
         /// <returns></returns>
@@ -24,7 +23,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="404">NotFound</response>
         /// <response code="400">Bad Request</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpPost]
+        [HttpPost("{addressId}/{contactId}")]
         public async Task<IActionResult> CreateOrder(Guid addressId, Guid contactId)
         {
             await _orderService.CreateOrder(addressId, contactId, UserId);
@@ -32,10 +31,20 @@ namespace Store.WebAPI.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> ChangeOrderStatus(Guid orderId, ChangeOrderDto request)
+        /// <summary>
+        /// Изменение статуса заказа
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">NotFound</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="500">Internal Server Error</response>
+        [HttpPut("{id}")]
+        public async Task<IActionResult> ChangeOrderStatus(Guid id, [FromBody] ChangeOrderDto request)
         {
-            await _orderService.ChangeStatusOrder(orderId, request);
+            await _orderService.ChangeStatusOrder(id, request);
 
             return Ok();
         }

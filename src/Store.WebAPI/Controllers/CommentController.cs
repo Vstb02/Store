@@ -18,17 +18,17 @@ namespace Store.WebAPI.Controllers
         /// <summary>
         /// Добавление комментария к товару
         /// </summary>
-        /// <param name="productId"></param>
+        /// <param name="id"></param>
         /// <param name="commentDto"></param>
         /// <returns>CommentItemDto</returns>
         /// <response code="200">Success</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">Not Found</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpPost]
-        public async Task<IActionResult> AddComment([FromQuery]Guid productId, CreateCommentDto commentDto)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> AddComment(Guid id, [FromBody] CreateCommentDto commentDto)
         {
-            var result = await _commentService.AddComment(UserId, productId, commentDto);
+            var result = await _commentService.AddComment(UserId, id, commentDto);
 
             return Ok(result);
         }
@@ -36,16 +36,16 @@ namespace Store.WebAPI.Controllers
         /// <summary>
         /// Удаление комментария
         /// </summary>
-        /// <param name="commentId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         /// <response code="200">Success</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">Not Found</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpPost]
-        public async Task<IActionResult> DeleteComment([FromQuery] Guid commentId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteComment(Guid id)
         {
-            await _commentService.DeleteComment(UserId, commentId);
+            await _commentService.DeleteComment(UserId, id);
 
             return Ok();
         }
@@ -59,7 +59,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="200">Success</response>
         /// <response code="400">Bad Request</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpGet]
+        [HttpGet("list")]
         public async Task<IActionResult> GetProductsComment([FromQuery] FilterPagingDto paging, [FromQuery] CommentFilterDto filter)
         {
             var result = await _commentService.GetProductComment(paging, filter);

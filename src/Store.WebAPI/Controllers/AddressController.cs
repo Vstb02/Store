@@ -16,16 +16,16 @@ namespace Store.WebAPI.Controllers
         /// <summary>
         /// Получение адреса
         /// </summary>
-        /// <param name="addressId"></param>
+        /// <param name="id"></param>
         /// <returns>AddressDto</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="400">Bad Request</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpGet]
-        public async Task<IActionResult> GetAddress([FromQuery] Guid addressId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAddress(Guid id)
         {
-            var result = await _addressService.GetAddress(addressId);
+            var result = await _addressService.GetAddress(id);
 
             return Ok(result);
         }
@@ -48,17 +48,17 @@ namespace Store.WebAPI.Controllers
         /// <summary>
         /// Изменение данных адреса
         /// </summary>
-        /// <param name="addressId"></param>
+        /// <param name="id"></param>
         /// <param name="request"></param>
         /// <returns>AddressDto</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="400">Bad Request</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpPost]
-        public async Task<IActionResult> UpdateAddress([FromQuery] Guid addressId, UpdateAddressDto request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAddress(Guid id, [FromBody] UpdateAddressDto request)
         {
-            var result = await _addressService.UpdateAddress(addressId, request);
+            var result = await _addressService.UpdateAddress(id, request);
 
             return Ok(result);
         }
@@ -73,7 +73,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="500">Internal Server Error</response>
         [HttpPost]
-        public async Task<IActionResult> AddAddress(CreateAddressDto request)
+        public async Task<IActionResult> AddAddress([FromBody] CreateAddressDto request)
         {
             var result = await _addressService.AddAdress(UserId, request);
 

@@ -30,7 +30,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="500">Internal Server Error</response>
         [Authorize(Roles = IdentityRoles.Admin)]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCategoryDto request)
+        public async Task<IActionResult> Create([FromBody] CreateCategoryDto request)
         {
             var result = await _categoryService.Create(request);
 
@@ -46,7 +46,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="500">Internal Server Error</response>
         [Authorize(Roles = IdentityRoles.Admin)]
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var result = await _categoryService.GetById(id);
@@ -63,7 +63,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="500">Internal Server Error</response>
         [Authorize(Roles = IdentityRoles.Admin)]
         [HttpGet]
-        public async Task<IActionResult> GetPageItems([FromQuery]FilterPagingDto filterPaging)
+        public async Task<IActionResult> GetPageItems([FromQuery] FilterPagingDto filterPaging)
         {
             var result = await _categoryService.GetPageItems(filterPaging);
 
@@ -81,8 +81,8 @@ namespace Store.WebAPI.Controllers
         /// <response code="409">Conflict</response>
         /// <response code="500">Internal Server Error</response>
         [Authorize(Roles = IdentityRoles.Admin)]
-        [HttpPut]
-        public async Task<IActionResult> Update(Guid id, UpdateCategoryDto request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateCategoryDto request)
         {
             var result = await _categoryService.Update(id, request);
 
@@ -98,7 +98,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="200">Success</response>
         /// <response code="500">Internal Server Error</response>
         [Authorize(Roles = IdentityRoles.Admin)]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _categoryService.Delete(id);

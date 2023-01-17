@@ -26,7 +26,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="500">Internal Server Error</response>
         [Authorize(Roles = IdentityRoles.Admin)]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateBrandDto request)
+        public async Task<IActionResult> Create([FromBody] CreateBrandDto request)
         {
             var result = await _brandService.Create(request);
 
@@ -40,7 +40,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="500">Internal Server Error</response>
         /// <response code="200">Success</response>
         [Authorize(Roles = IdentityRoles.Admin)]
-        [HttpGet]
+        [HttpGet()]
         public async Task<IActionResult> GetPageItems([FromQuery] FilterPagingDto filterPaging)
         {
             var result = await _brandService.GetPageItems(filterPaging);
@@ -56,7 +56,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="500">Internal Server Error</response>
         /// <response code="200">Success</response>
         [Authorize(Roles = IdentityRoles.Admin)]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _brandService.Delete(id);
@@ -67,13 +67,14 @@ namespace Store.WebAPI.Controllers
         /// <summary>
         /// Изменение данных компании
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="request"></param>
         /// <returns>BrandDto</returns>
         /// <response code="500">Internal Server Error</response>
         /// <response code="200">Success</response>
         [Authorize(Roles = IdentityRoles.Admin)]
-        [HttpPut]
-        public async Task<IActionResult> Update(Guid id, UpdateBrandDto request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateBrandDto request)
         {
             var result = await _brandService.Update(id, request);
 

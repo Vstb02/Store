@@ -28,7 +28,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="500">Internal Server Error</response>
         [Authorize(Roles = IdentityRoles.Admin)]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateProductDto request)
+        public async Task<IActionResult> Create([FromBody] CreateProductDto request)
         {
             var result = await _productService.Create(request);
 
@@ -42,8 +42,9 @@ namespace Store.WebAPI.Controllers
         /// <returns>ProductDto</returns>
         /// <response code="500">Internal Server Error</response>
         /// <response code="200">Success</response>
+        /// <response code="400">Bad Request</response>
         [Authorize(Roles = IdentityRoles.Admin)]
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var result = await _productService.GetById(id);
@@ -57,9 +58,10 @@ namespace Store.WebAPI.Controllers
         /// <returns>List ProductDto</returns>
         /// <response code="500">Internal Server Error</response>
         /// <response code="200">Success</response>
+        /// <response code="400">Bad Request</response>
         [Authorize(Roles = IdentityRoles.Admin)]
         [HttpGet]
-        public async Task<IActionResult> GetPageItems([FromQuery]FilterPagingDto filterPaging, [FromQuery]ProductFilterDto filter)
+        public async Task<IActionResult> GetPageItems([FromQuery] FilterPagingDto filterPaging, [FromQuery] ProductFilterDto filter)
         {
             var result = await _productService.GetPageItems(filterPaging, filter);
 
@@ -73,8 +75,9 @@ namespace Store.WebAPI.Controllers
         /// <returns></returns>
         /// <response code="500">Internal Server Error</response>
         /// <response code="200">Success</response>
+        /// <response code="400">Bad Request</response>
         [Authorize(Roles = IdentityRoles.Admin)]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _productService.Delete(id);
@@ -89,9 +92,10 @@ namespace Store.WebAPI.Controllers
         /// <returns>ProductDto</returns>
         /// <response code="500">Internal Server Error</response>
         /// <response code="200">Success</response>
+        /// <response code="400">Bad Request</response>
         [Authorize(Roles = IdentityRoles.Admin)]
-        [HttpPut]
-        public async Task<IActionResult> Update(Guid id, UpdateProductDto request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProductDto request)
         {
             var result = await _productService.Update(id, request);
 

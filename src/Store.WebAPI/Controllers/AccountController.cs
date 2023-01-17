@@ -31,7 +31,7 @@ namespace Store.WebAPI.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         /// <response code="400">Bad Request</response>
-        /// <response code="403">Forbidden</response>
+        /// <response code="401">Unauthorized</response>
         /// <response code="200">Success</response>
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserRequestDto request)
