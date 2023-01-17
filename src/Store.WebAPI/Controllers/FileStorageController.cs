@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
 using Store.WebAPI.Helpers;
 using Store.WebAPI.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace Store.WebAPI.Controllers
 {
+    [Authorize(Roles = $"{IdentityRoles.Admin}, {IdentityRoles.Operator}")]
     public class FileStorageController : ApiControllerBase
     {
         private readonly string dir = "FileStorage";

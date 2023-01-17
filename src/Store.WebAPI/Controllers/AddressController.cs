@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Store.Application.Interfaces;
 using Store.Application.Models.Addresses;
 
 namespace Store.WebAPI.Controllers
 {
+    [Authorize]
     public class AddressController : ApiControllerBase
     {
         private readonly IAddressService _addressService;

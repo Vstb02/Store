@@ -45,7 +45,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="200">Success</response>
         /// <response code="400">Bad Request</response>
         /// <response code="500">Internal Server Error</response>
-        [Authorize(Roles = IdentityRoles.Admin)]
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
@@ -61,7 +61,6 @@ namespace Store.WebAPI.Controllers
         /// <response code="200">Success</response>
         /// <response code="400">Bad Request</response>
         /// <response code="500">Internal Server Error</response>
-        [Authorize(Roles = IdentityRoles.Admin)]
         [HttpGet]
         public async Task<IActionResult> GetPageItems([FromQuery] FilterPagingDto filterPaging)
         {
@@ -80,7 +79,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="409">Conflict</response>
         /// <response code="500">Internal Server Error</response>
-        [Authorize(Roles = IdentityRoles.Admin)]
+        [Authorize(Roles = $"{IdentityRoles.Admin}, {IdentityRoles.Operator}")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateCategoryDto request)
         {
@@ -97,7 +96,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="200">Success</response>
         /// <response code="500">Internal Server Error</response>
-        [Authorize(Roles = IdentityRoles.Admin)]
+        [Authorize(Roles = $"{IdentityRoles.Admin}, {IdentityRoles.Operator}")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {

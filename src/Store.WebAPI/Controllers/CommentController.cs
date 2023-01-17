@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Store.Application.Interfaces;
 using Store.Application.Models.Comments;
 using Store.Application.Models.Filters;
@@ -6,6 +7,7 @@ using Store.Domain.Filters.Comments;
 
 namespace Store.WebAPI.Controllers
 {
+    [Authorize]
     public class CommentController : ApiControllerBase
     {
         private readonly ICommentService _commentService;
@@ -41,7 +43,6 @@ namespace Store.WebAPI.Controllers
         /// <response code="200">Success</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">Not Found</response>
-        /// <response code="500">Internal Server Error</response>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment(Guid id)
         {
@@ -59,7 +60,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="200">Success</response>
         /// <response code="400">Bad Request</response>
         /// <response code="500">Internal Server Error</response>
-        [HttpGet("list")]
+        [HttpGet()]
         public async Task<IActionResult> GetProductsComment([FromQuery] FilterPagingDto paging, [FromQuery] CommentFilterDto filter)
         {
             var result = await _commentService.GetProductComment(paging, filter);

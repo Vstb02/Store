@@ -13,6 +13,7 @@ namespace Store.Infrastructure.Identity
         {
             await roleManager.CreateAsync(new IdentityRole(IdentityRoles.Admin));
             await roleManager.CreateAsync(new IdentityRole(IdentityRoles.User));
+            await roleManager.CreateAsync(new IdentityRole(IdentityRoles.Operator));
 
             var password = configuration.GetSection("Identity:DefaultPassword").Value;
 

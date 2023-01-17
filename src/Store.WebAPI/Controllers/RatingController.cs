@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Store.Application.Interfaces;
 using Store.Application.Models.Raitings;
 using Store.Application.Models.Ratings;
@@ -40,6 +41,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="200">Success</response>
         /// <response code="404">NotFound</response>
         /// <response code="500">Internal Server Error</response>
+        [Authorize]
         [HttpPost("{id}")]
         public async Task<IActionResult> AddRating(Guid id, [FromBody] CreateRatingDto rating)
         {
@@ -57,6 +59,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="200">Success</response>
         /// <response code="404">NotFound</response>
         /// <response code="500">Internal Server Error</response>
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> SetRating(Guid id, CreateRatingDto rating)
         {

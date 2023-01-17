@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
 using Store.Application.Models.Orders;
+using System.Data;
 
 namespace Store.WebAPI.Controllers
 {
@@ -23,6 +26,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="404">NotFound</response>
         /// <response code="400">Bad Request</response>
         /// <response code="500">Internal Server Error</response>
+        [Authorize]
         [HttpPost("{addressId}/{contactId}")]
         public async Task<IActionResult> CreateOrder(Guid addressId, Guid contactId)
         {
@@ -41,6 +45,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="404">NotFound</response>
         /// <response code="400">Bad Request</response>
         /// <response code="500">Internal Server Error</response>
+        [Authorize(Roles = $"{IdentityRoles.Admin}, {IdentityRoles.Operator}")]
         [HttpPut("{id}")]
         public async Task<IActionResult> ChangeOrderStatus(Guid id, [FromBody] ChangeOrderDto request)
         {

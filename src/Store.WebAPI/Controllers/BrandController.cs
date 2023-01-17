@@ -24,7 +24,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="200">Success</response>
         /// <response code="409">Conflict</response>
         /// <response code="500">Internal Server Error</response>
-        [Authorize(Roles = IdentityRoles.Admin)]
+        [Authorize(Roles = $"{IdentityRoles.Admin}, {IdentityRoles.Operator}")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateBrandDto request)
         {
@@ -39,7 +39,6 @@ namespace Store.WebAPI.Controllers
         /// <returns>List BrandDto</returns>
         /// <response code="500">Internal Server Error</response>
         /// <response code="200">Success</response>
-        [Authorize(Roles = IdentityRoles.Admin)]
         [HttpGet()]
         public async Task<IActionResult> GetPageItems([FromQuery] FilterPagingDto filterPaging)
         {
@@ -55,7 +54,7 @@ namespace Store.WebAPI.Controllers
         /// <returns></returns>
         /// <response code="500">Internal Server Error</response>
         /// <response code="200">Success</response>
-        [Authorize(Roles = IdentityRoles.Admin)]
+        [Authorize(Roles = $"{IdentityRoles.Admin}, {IdentityRoles.Operator}")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -72,7 +71,7 @@ namespace Store.WebAPI.Controllers
         /// <returns>BrandDto</returns>
         /// <response code="500">Internal Server Error</response>
         /// <response code="200">Success</response>
-        [Authorize(Roles = IdentityRoles.Admin)]
+        [Authorize(Roles = $"{IdentityRoles.Admin}, {IdentityRoles.Operator}")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateBrandDto request)
         {

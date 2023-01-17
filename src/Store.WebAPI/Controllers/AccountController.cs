@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Store.Application.Interfaces;
 using Store.Domain.Identity;
@@ -33,6 +34,7 @@ namespace Store.WebAPI.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="401">Unauthorized</response>
         /// <response code="200">Success</response>
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserRequestDto request)
         {

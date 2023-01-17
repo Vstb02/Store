@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Store.Application.Interfaces;
 
 namespace Store.WebAPI.Controllers
 {
+    [Authorize]
     public class BasketController : ApiControllerBase
     {
         private readonly IBasketService _basketService;

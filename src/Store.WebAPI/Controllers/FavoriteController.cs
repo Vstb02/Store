@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Store.Application.Interfaces;
 using Store.Application.Models.Filters;
 
 namespace Store.WebAPI.Controllers
 {
+    [Authorize]
     public class FavoriteController : ApiControllerBase
     {
         private readonly IFavoriteService _favoriteService;

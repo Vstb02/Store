@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Store.Application.Interfaces;
 using Store.Application.Models.Contacts;
 
 namespace Store.WebAPI.Controllers
 {
+    [Authorize]
     public class ContactController : ApiControllerBase
     {
         private readonly IContactService _contactService;
