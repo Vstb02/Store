@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Store.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Store.Application.Models.Orders
 {
-    internal class ChangeOrderDto
+    public record class ChangeOrderDto
     {
+        [Display(Name = "Статус")]
+        [Required(ErrorMessage = "Поле «{0}» не заполнено")]
+        [Range(0, 1, ErrorMessage = "Значение для {0} должно быть между {1} ​​и {2}.")]
+        public OrderStatus OrderStatus { get; init; } 
     }
 }

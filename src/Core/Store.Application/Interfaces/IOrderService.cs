@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Store.Application.Models.Orders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,9 @@ namespace Store.Application.Interfaces
                          Guid contactId,
                          string buyerId,
                          CancellationToken cancellationToken = default);
+
+        Task ChangeStatusOrder(Guid orderId,
+                               ChangeOrderDto changeOrder,
+                               CancellationToken cancellationToken = default);
     }
 }
