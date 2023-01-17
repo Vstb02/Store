@@ -53,6 +53,11 @@ namespace Store.Application.Services
 
             var basketItems = exsistingBasket.BasketItems;
 
+            if (basketItems.Count == 0)
+            {
+                throw new EmptyBasketException();
+            }
+
             var items = _mapper.Map<List<OrderItem>>(basketItems);
 
             var order = new Order()

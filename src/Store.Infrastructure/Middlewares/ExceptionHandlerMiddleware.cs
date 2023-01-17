@@ -41,6 +41,10 @@ namespace Store.Infrastructure.Middlewares
                     code = HttpStatusCode.NotFound;
                     message = notFoundException.Message;
                     break;
+                case EmptyBasketException basketException:
+                    code = HttpStatusCode.NotFound;
+                    message = basketException.Message;
+                    break;
                 case ValidationException validationException:
                     code = HttpStatusCode.BadRequest;
                     message = validationException.Message;
