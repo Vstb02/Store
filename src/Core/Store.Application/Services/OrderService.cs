@@ -69,7 +69,11 @@ namespace Store.Application.Services
                 OrderStatus = OrderStatus.inProcessing,
             };
 
-            var result = await _orderRepository.Create(order, cancellationToken);
+            await _orderRepository.Create(order, cancellationToken);
+
+            exsistingBasket.BasketItems.Clear();
+
+            await _basketRepository.Update(exsistingBasket);
         }
 
         public async Task ChangeStatusOrder(Guid orderId,
