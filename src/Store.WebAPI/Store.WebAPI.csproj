@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Store.Infrastructure\Store.Infrastructure.csproj" />
+    <ProjectReference Include="..\Store.Persistence\Store.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

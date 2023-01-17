@@ -1,14 +1,13 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Store.Application.Extensions;
 using Store.Domain.Identity;
-using Store.Infrastructure.Extensions;
 using Store.Infrastructure.Identity;
-using System.Reflection;
+using Store.Infrastructure.Middlewares;
+using Store.Persistence.Extensions;
 using System.Text;
 using System.Text.Json.Serialization;
 

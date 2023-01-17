@@ -5,7 +5,7 @@ using Store.Domain.Interfaces;
 
 namespace Store.Infrastructure.Data.Repositories
 {
-    public abstract class BaseRepository<TContext, TFilter, TModel, TKey> : IBaseRepository<TContext, TFilter, TModel, TKey>
+    public abstract class BaseRepository<TContext, TFilter, TModel, TKey> : IBaseRepository<TFilter, TModel, TKey>
         where TContext : DbContext
         where TFilter : BaseFilter
         where TModel : BaseEntity<TKey>

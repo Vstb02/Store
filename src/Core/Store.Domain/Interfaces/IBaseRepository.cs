@@ -1,11 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Store.Domain.Entities;
+﻿using Store.Domain.Entities;
 using Store.Domain.Filters;
 
 namespace Store.Domain.Interfaces
 {
-    public interface IBaseRepository<TContext, TFilter, TModel, TKey>
-        where TContext : DbContext
+    public interface IBaseRepository<TFilter, TModel, TKey>
         where TFilter : BaseFilter
         where TModel : BaseEntity<TKey>
         where TKey : struct, IEquatable<TKey>
