@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Store.Application.Common.Exceptions;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 
-namespace Store.WebAPI.Middlewares
+namespace Store.Infrastructure.Middlewares
 {
     public class ExceptionHandlerMiddleware
     {

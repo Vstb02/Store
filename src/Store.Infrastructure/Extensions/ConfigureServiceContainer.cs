@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Store.Application.Interfaces;
@@ -7,6 +8,7 @@ using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Contexts;
 using Store.Infrastructure.Data.Repositories;
 using Store.Infrastructure.Identity;
+using Store.Infrastructure.Middlewares;
 
 namespace Store.Infrastructure.Extensions
 {
@@ -50,6 +52,11 @@ namespace Store.Infrastructure.Extensions
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IContactService, ContactService>();
             services.AddScoped<IOrderService, OrderService>();
+        }
+
+        public static void UseExceptionHandlerMiddleware(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
         }
     }
 }
