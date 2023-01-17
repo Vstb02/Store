@@ -3,14 +3,12 @@ using Microsoft.Extensions.Logging;
 using SlugGenerator;
 using Store.Application.Common.Exceptions;
 using Store.Application.Interfaces;
-using Store.Application.Models.Categories;
 using Store.Application.Models.Filters;
 using Store.Application.Models.Products;
 using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Filters.Products;
 using Store.Domain.Interfaces;
-using System.Data;
 
 namespace Store.Application.Services
 {

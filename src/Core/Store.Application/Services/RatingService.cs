@@ -5,12 +5,6 @@ using Store.Application.Models.Raitings;
 using Store.Application.Models.Ratings;
 using Store.Domain.Entities;
 using Store.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.XPath;
 
 namespace Store.Application.Services
 {

@@ -1,6 +1,4 @@
-﻿
-
-using Store.Application.Models.Comments;
+﻿using Store.Application.Models.Comments;
 using Store.Application.Models.Filters;
 
 namespace Store.Application.Interfaces

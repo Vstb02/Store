@@ -2,7 +2,6 @@
 using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Filters.Comments;
-using Store.Domain.Filters.Products;
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Contexts;
 

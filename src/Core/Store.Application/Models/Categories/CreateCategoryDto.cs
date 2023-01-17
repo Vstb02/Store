@@ -1,5 +1,4 @@
-﻿using Store.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Store.Application.Models.Categories
 {

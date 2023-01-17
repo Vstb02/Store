@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Store.Application.Models.Brands;
-using Store.Application.Models.Products;
 using Store.Domain.Entities;
 
 namespace Store.Application.Common.MappingProfiles

@@ -1,12 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Filters.Products;
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Contexts;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Store.Infrastructure.Data.Repositories
 {

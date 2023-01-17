@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Store.Application.Interfaces;
 using Store.Domain.Identity;
-using Store.WebAPI.Models;
 using Store.WebAPI.Models.Identity;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace Store.WebAPI.Controllers
 {

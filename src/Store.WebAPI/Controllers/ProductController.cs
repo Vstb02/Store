@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
 using Store.Application.Models.Filters;
 using Store.Application.Models.Products;
-using Store.Domain.Identity;
 
 namespace Store.WebAPI.Controllers
 {

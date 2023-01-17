@@ -3,7 +3,6 @@ using Store.Application.Common.Exceptions;
 using Store.Application.Interfaces;
 using Store.Application.Models.Brands;
 using Store.Application.Models.Filters;
-using Store.Application.Models.Products;
 using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Interfaces;

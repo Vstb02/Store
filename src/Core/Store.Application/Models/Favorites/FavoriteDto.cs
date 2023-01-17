@@ -1,6 +1,4 @@
-﻿using Store.Application.Models.Baskets;
-
-namespace Store.Application.Models.Favorites
+﻿namespace Store.Application.Models.Favorites
 {
     public class FavoriteDto
     {
