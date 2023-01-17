@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Store.Application.Common.Exceptions
 {
-    public class EmptyBasketException
+    public class EmptyBasketException : Exception
     {
         public EmptyBasketException()
             : base($"В корзине не может быть 0 товаров при оформлении заказа")

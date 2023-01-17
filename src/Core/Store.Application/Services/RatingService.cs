@@ -49,7 +49,14 @@ namespace Store.Application.Services
 
             if (existingProduct is null)
             {
-                throw new NotFoundException("Товра не найден");
+                throw new NotFoundException("Товар не найден");
+            }
+
+            var existingRating = _ratingRepository.GetByBuyerId(buyerId, cancellationToken);
+
+            if (existingRating is not null)
+            {
+                throw new DuplicateException("Оценка уже установлена");
             }
 
             var rating = _mapper.Map<Rating>(ratingDto);
