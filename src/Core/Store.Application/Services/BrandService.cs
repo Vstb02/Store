@@ -28,7 +28,7 @@ namespace Store.Application.Services
 
             if (existingEntity is not null)
             {
-                throw new DuplicateNameException($"Компания с именем {brand.Name} уже существует", existingEntity.Id);
+                throw new DuplicateException($"Компания с именем {brand.Name} уже существует");
             }
 
             var entity = _mapper.Map<Brand>(brand);
@@ -67,7 +67,7 @@ namespace Store.Application.Services
 
             if (existingEntity is not null && existingEntity.Id != id)
             {
-                throw new DuplicateNameException($"Компания с именем {brand.Name} уже существует", existingEntity.Id);
+                throw new DuplicateException($"Компания с именем {brand.Name} уже существует");
             }
 
             _mapper.Map(brand, entity);

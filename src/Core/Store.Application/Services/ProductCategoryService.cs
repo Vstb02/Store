@@ -30,7 +30,7 @@ namespace Store.Application.Services
 
             if (existingEntity is not null)
             {
-                throw new DuplicateCategoryNameException($"Категория с именем {category.Name} уже существует", existingEntity.Id);
+                throw new DuplicateException($"Категория с именем {category.Name} уже существует");
             }
 
             var result = _mapper.Map<ProductCategory>(category);
@@ -86,7 +86,7 @@ namespace Store.Application.Services
 
             if (existingEntity is not null && existingEntity.Id != id)
             {
-                throw new DuplicateCategoryNameException($"Продукт с именем {category.Name} уже существует", existingEntity.Id);
+                throw new DuplicateException($"Продукт с именем {category.Name} уже существует");
             }
 
             _mapper.Map(category, entity);

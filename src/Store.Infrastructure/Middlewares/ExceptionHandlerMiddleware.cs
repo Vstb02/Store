@@ -33,21 +33,13 @@ namespace Store.Infrastructure.Middlewares
             string? message = null;
             switch (exception)
             {
-                case DuplicateCategoryNameException categoryNameException:
+                case DuplicateException duplicateException:
                     code = HttpStatusCode.BadRequest;
-                    message = categoryNameException.Message;
-                    break;
-                case DuplicateProductNameException categoryPorductException:
-                    code = HttpStatusCode.BadRequest;
-                    message = categoryPorductException.Message;
+                    message = duplicateException.Message;
                     break;
                 case NotFoundException notFoundException:
                     code = HttpStatusCode.NotFound;
                     message = notFoundException.Message;
-                    break;
-                case DuplicateBasketItemException duplicateBasketItemException:
-                    code = HttpStatusCode.BadRequest;
-                    message = duplicateBasketItemException.Message;
                     break;
                 case ValidationException validationException:
                     code = HttpStatusCode.BadRequest;

@@ -67,7 +67,7 @@ namespace Store.Application.Services
 
             if (existingFavoriteItem is not null)
             {
-                throw new DuplicateNameException("Товар уже добавлен", productId);
+                throw new DuplicateException("Товар уже добавлен");
             }
 
             var existingProduct = await _productRepository.GetById(productId,

@@ -36,7 +36,7 @@ namespace Store.Application.Services
 
             if (existingEntity is not null)
             {
-                throw new DuplicateProductNameException($"Продукт с именем {product.Name} уже существует", existingEntity.Id);
+                throw new DuplicateException($"Продукт с именем {product.Name} уже существует");
             }
 
             var entity = _mapper.Map<Product>(product);
@@ -88,7 +88,7 @@ namespace Store.Application.Services
 
             if (existingEntity is not null && existingEntity.Id != id)
             {
-                throw new DuplicateProductNameException($"Продукт с именем {product.Name} уже существует", existingEntity.Id);
+                throw new DuplicateException($"Продукт с именем {product.Name} уже существует");
             }
 
             _mapper.Map(product, entity);

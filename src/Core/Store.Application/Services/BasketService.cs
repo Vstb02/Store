@@ -40,7 +40,7 @@ namespace Store.Application.Services
 
             if (existingBasketItem is not null)
             {
-                throw new DuplicateBasketItemException("Товар уже добавлен в корзину", productId);
+                throw new DuplicateException("Товар уже добавлен в корзину");
             }
 
             var existingProduct = await _productRepository.GetById(productId, cancellationToken);
