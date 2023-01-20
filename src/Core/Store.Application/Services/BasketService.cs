@@ -101,25 +101,35 @@ namespace Store.Application.Services
                                                cancellationToken);
             }
 
-            var totalPrice = entity?.BasketItems.Sum(x => x.Price);
-            var totalQuantity = entity?.BasketItems.Sum(x => x.Quantity);
-
             var basketItems = _mapper.Map<List<BasketItemDto>>(entity.BasketItems);
 
             var result = new BasketDto()
             {
                 Items = basketItems,
-                TotalPrice = totalPrice ?? 0,
-                TotalQuantity = totalQuantity ?? 0,
+                TotalPrice = GetBasketPrice(entity),
+                TotalQuantity = entity.BasketItems.Sum(x => x.Quantity),
             };
 
             return result;
         }
 
+        private decimal GetBasketPrice(Basket basket, CancellationToken cancellationToken = default)
+        {
+            var items = basket.BasketItems;
+            var price = 0m;
+
+            foreach (var item in items)
+            {
+                price += item.Quantity * item.Price;
+            }
+
+            return price;
+        }
+
         public async Task<BasketItemDto> SetQuantity(string buyerId,
-                                            Guid basketItemId,
-                                            int quantity,
-                                            CancellationToken cancellationToken = default)
+                                                     Guid basketItemId,
+                                                     int quantity,
+                                                     CancellationToken cancellationToken = default)
         {
             if (quantity < 0) { 
                 throw new ValidationException("Количество товара не может быть отрицательным"); 
@@ -139,10 +149,13 @@ namespace Store.Application.Services
                 throw new NotFoundException("Товар не найден");
             }
 
-            existingBasketItem.Quantity = quantity;
-            existingBasketItem.Price = quantity * existingBasketItem.Product.Price;
+            if (quantity != existingBasketItem.Quantity)
+            {
+                existingBasketItem.Quantity = quantity;
+                existingBasketItem.Price = quantity * existingBasketItem.Product.Price;
 
-            await _basketItemRepository.Update(existingBasketItem);
+                await _basketItemRepository.Update(existingBasketItem);
+            }
 
             var result = _mapper.Map<BasketItemDto>(existingBasketItem);
 
