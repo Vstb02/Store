@@ -33,25 +33,7 @@ namespace Store.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Добавление рейтинга для товара
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="rating"></param>
-        /// <returns>RatingDto</returns>
-        /// <response code="200">Success</response>
-        /// <response code="404">NotFound</response>
-        /// <response code="500">Internal Server Error</response>
-        [Authorize]
-        [HttpPost("{id}")]
-        public async Task<IActionResult> AddRating(Guid id, [FromBody] CreateRatingDto rating)
-        {
-            var result = await _ratingService.AddRating(UserId, rating, id);
-
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Изменение рейтинга товара
+        /// Добавление рейтинга товара
         /// </summary>
         /// <param name="id"></param>
         /// <param name="rating"></param>
