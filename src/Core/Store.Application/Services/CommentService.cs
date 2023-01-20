@@ -49,11 +49,10 @@ namespace Store.Application.Services
             return result;
         }
 
-        public async Task DeleteComment(string authorId,
-                                        Guid commentId,
+        public async Task DeleteComment(Guid commentId,
                                         CancellationToken cancellationToken = default)
         {
-            var comment = await _commentRepository.GetByAuthorId(authorId, cancellationToken);
+            var comment = await _commentRepository.GetById(commentId, cancellationToken);
 
             if (comment is null)
             {

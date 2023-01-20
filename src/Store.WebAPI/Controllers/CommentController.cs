@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
 using Store.Application.Models.Comments;
 using Store.Application.Models.Filters;
@@ -43,10 +44,11 @@ namespace Store.WebAPI.Controllers
         /// <response code="200">Success</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">Not Found</response>
+        [Authorize(Roles = IdentityRoles.Admin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment(Guid id)
         {
-            await _commentService.DeleteComment(UserId, id);
+            await _commentService.DeleteComment(id);
 
             return Ok();
         }

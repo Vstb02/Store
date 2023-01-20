@@ -19,14 +19,6 @@ namespace Store.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<Comment> GetByAuthorId(string authorId, CancellationToken cancellationToken = default)
-        {
-            var result = await _context.Comments.FirstOrDefaultAsync(x => x.AuthorId.Equals(authorId),
-                                                                    cancellationToken);
-
-            return result;
-        }
-
         public override async Task<IEnumerable<Comment>> GetPageItems(FilterPaging paging,
                                                                CommentFilter filter,
                                                                CancellationToken cancellationToken = default)

@@ -40,7 +40,7 @@ namespace Store.Application.Services
             return result;
         }
 
-        public async Task<RatingDto> AddRating(string buyerId,
+        public async Task<RatingDto> SetRating(string buyerId,
                                     CreateRatingDto ratingDto,
                                     Guid productId,
                                     CancellationToken cancellationToken = default)
@@ -52,11 +52,17 @@ namespace Store.Application.Services
                 throw new NotFoundException("Товар не найден");
             }
 
-            var existingRating = _ratingRepository.GetByBuyerId(buyerId, cancellationToken);
+            var existingRating = await _ratingRepository.GetByBuyerId(buyerId, cancellationToken);
 
             if (existingRating is not null)
             {
-                throw new DuplicateException("Оценка уже установлена");
+                existingRating.Value = ratingDto.Value;
+
+                await _ratingRepository.Update(existingRating);
+
+                var updateResult = _mapper.Map<RatingDto>(existingRating);
+
+                return updateResult;
             }
 
             var rating = _mapper.Map<Rating>(ratingDto);
@@ -69,27 +75,6 @@ namespace Store.Application.Services
 
             return result;
             
-        }
-
-        public async Task<RatingDto> SetRating(string buyerId,
-                                    CreateRatingDto ratingDto,
-                                    Guid ratingId,
-                                    CancellationToken cancellationToken = default)
-        {
-            var existingRating = await _ratingRepository.GetById(ratingId);
-
-            if (existingRating is null)
-            {
-                throw new NotFoundException("Рейтинг еще не установлен");
-            }
-
-            existingRating.Value = ratingDto.Value;
-
-            await _ratingRepository.Update(existingRating);
-
-            var result = _mapper.Map<RatingDto>(existingRating);
-
-            return result;
         }
     }
 }
