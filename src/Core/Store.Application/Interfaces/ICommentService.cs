@@ -10,8 +10,7 @@ namespace Store.Application.Interfaces
                                         CreateCommentDto createComment,
                                         CancellationToken cancellationToken = default);
 
-        Task DeleteComment(string authorId,
-                           Guid commentId,
+        Task DeleteComment(Guid commentId,
                            CancellationToken cancellationToken = default);
 
         Task<CommentDto> GetProductComment(FilterPagingDto paging,
