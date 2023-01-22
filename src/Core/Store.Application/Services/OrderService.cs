@@ -60,6 +60,11 @@ namespace Store.Application.Services
 
             var items = _mapper.Map<List<OrderItem>>(basketItems);
 
+            foreach (var item in items)
+            {
+                item.Price = item.Quantity * item.Product.Price;
+            }
+
             var order = new Order()
             {
                 BuyerId = buyerId,

@@ -69,7 +69,6 @@ namespace Store.Application.Services
             basketItem.BasketId = existingBasket.Id;
             basketItem.ProductId = existingProduct.Id;
             basketItem.Quantity = 1;
-            basketItem.Price = existingProduct.Price;
 
             await _basketItemRepository.Create(basketItem);
 
@@ -113,14 +112,14 @@ namespace Store.Application.Services
             return result;
         }
 
-        private decimal GetBasketPrice(Basket basket, CancellationToken cancellationToken = default)
+        private decimal GetBasketPrice(Basket basket)
         {
             var items = basket.BasketItems;
             var price = 0m;
 
             foreach (var item in items)
             {
-                price += item.Quantity * item.Price;
+                price += item.Quantity * item.Product.Price;
             }
 
             return price;
@@ -152,7 +151,6 @@ namespace Store.Application.Services
             if (quantity != existingBasketItem.Quantity)
             {
                 existingBasketItem.Quantity = quantity;
-                existingBasketItem.Price = quantity * existingBasketItem.Product.Price;
 
                 await _basketItemRepository.Update(existingBasketItem);
             }

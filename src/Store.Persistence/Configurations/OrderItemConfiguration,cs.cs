@@ -17,6 +17,10 @@ namespace Store.Persistence.Configurations
             builder.HasOne(x => x.Product)
                 .WithMany(x => x.OrderItems)
                 .HasForeignKey(x => x.ProductId);
+
+            builder.Property(x => x.Price)
+                .IsRequired()
+                .HasColumnType("decimal(18,2)");
         }
     }
 }
