@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Nest;
 using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Interfaces;
@@ -12,18 +13,21 @@ namespace Store.Infrastructure.Data.Repositories
         where TKey : struct, IEquatable<TKey>
     {
         private readonly TContext _context;
+        private readonly IElasticClient _elasticClient;
 
-        protected BaseRepository(TContext context)
+        protected BaseRepository(TContext context, IElasticClient elasticClient)
         {
             _context = context;
+            _elasticClient = elasticClient;
         }
 
         public async Task<TModel> Create(TModel data, CancellationToken cancellationToken = default)
         {
             data.Created = DateTime.UtcNow;
             data.Updated = DateTime.UtcNow;
-            await _context.Set<TModel>().AddAsync(data, cancellationToken);
+            var result = await _context.Set<TModel>().AddAsync(data, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
+            await _elasticClient.IndexDocumentAsync(result.Entity, cancellationToken);
             return data;
         }
 

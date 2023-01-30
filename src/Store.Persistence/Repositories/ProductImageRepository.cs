@@ -1,4 +1,5 @@
-﻿using Store.Domain.Entities;
+﻿using Nest;
+using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Repositories;
@@ -9,8 +10,8 @@ namespace Store.Persistence.Repositories
     public class ProductImageRepository : BaseRepository<ApplicationDbContext, BaseFilter, ProductImage, Guid>,
         IProductImageRepository
     {
-        public ProductImageRepository(ApplicationDbContext context)
-            : base(context)
+        public ProductImageRepository(ApplicationDbContext context, IElasticClient elasticClient)
+            : base(context, elasticClient)
         {
         }
     }

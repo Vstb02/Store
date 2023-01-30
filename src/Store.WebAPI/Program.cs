@@ -25,6 +25,8 @@ builder.Services.ConfigureDbContext(Configuration);
 builder.Services.ConfigureDependencyContainer();
 builder.Services.ConfigureCommonContainer();
 
+builder.Services.AddElasticsearch(Configuration);
+
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 

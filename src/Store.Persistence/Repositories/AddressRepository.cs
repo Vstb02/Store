@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Nest;
 using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Interfaces;
@@ -11,8 +12,8 @@ namespace Store.Persistence.Repositories
         IAddressRepository
     {
         private readonly ApplicationDbContext _context;
-        public AddressRepository(ApplicationDbContext context)
-            : base(context)
+        public AddressRepository(ApplicationDbContext context, IElasticClient elasticClient)
+            : base(context, elasticClient)
         {
             _context = context;
         }

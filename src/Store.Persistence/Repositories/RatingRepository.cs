@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Nest;
 using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Interfaces;
@@ -12,8 +13,8 @@ namespace Store.Persistence.Repositories
     {
         private readonly ApplicationDbContext _context;
 
-        public RatingRepository(ApplicationDbContext context)
-            : base(context)
+        public RatingRepository(ApplicationDbContext context, IElasticClient elasticClient)
+            : base(context, elasticClient)
         {
             _context = context;
         }

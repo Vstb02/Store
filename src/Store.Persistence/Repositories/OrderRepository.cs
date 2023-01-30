@@ -1,4 +1,5 @@
-﻿using Store.Domain.Entities;
+﻿using Nest;
+using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Repositories;
@@ -9,8 +10,8 @@ namespace Store.Persistence.Repositories
     public class OrderRepository : BaseRepository<ApplicationDbContext, BaseFilter, Order, Guid>,
         IOrderRepository
     {
-        public OrderRepository(ApplicationDbContext context)
-            : base(context)
+        public OrderRepository(ApplicationDbContext context, IElasticClient elasticClient) 
+            : base(context, elasticClient)
         {
 
         }

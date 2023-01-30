@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Nest;
 using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Filters.Products;
@@ -11,10 +12,12 @@ namespace Store.Persistence.Repositories
     public class ProductRepository : BaseRepository<ApplicationDbContext, ProductFilter, Product, Guid>, IProductRepository
     {
         private readonly ApplicationDbContext _context;
-        public ProductRepository(ApplicationDbContext context) 
-            : base(context)
+        private readonly IElasticClient _elasticClient;
+        public ProductRepository(ApplicationDbContext context, IElasticClient elasticClient) 
+            : base(context, elasticClient)
         {
             _context = context;
+            _elasticClient = elasticClient;
         }
 
         public async Task<Product> GetByName(string name, CancellationToken cancellationToken = default)
@@ -25,8 +28,8 @@ namespace Store.Persistence.Repositories
         }
 
         public override async Task<IEnumerable<Product>> GetPageItems(FilterPaging paging,
-                                                               ProductFilter filter,
-                                                               CancellationToken cancellationToken = default)
+                                                             ProductFilter filter,
+                                                             CancellationToken cancellationToken = default)
         {
             var query = _context.Products.Include(x => x.ProductImages)
                                          .Include(x => x.Brand)

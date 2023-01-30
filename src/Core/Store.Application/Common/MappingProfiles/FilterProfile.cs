@@ -13,6 +13,7 @@ namespace Store.Application.Common.MappingProfiles
             CreateMap<FilterPagingDto, FilterPaging>();
             CreateMap<ProductFilterDto, ProductFilter>();
             CreateMap<CommentFilterDto, CommentFilter>();
+            CreateMap<SearchFilterDto, SearchFilter>();
         }
     }
 }

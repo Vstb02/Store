@@ -51,6 +51,7 @@ namespace Store.Persistence.Extensions
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IContactService, ContactService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<ISearchService, SearchService>();
         }
     }
 }

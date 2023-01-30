@@ -1,4 +1,5 @@
-﻿using Store.Domain.Entities;
+﻿using Nest;
+using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Interfaces;
 using Store.Infrastructure.Data.Repositories;
@@ -9,8 +10,8 @@ namespace Store.Persistence.Repositories
     public class BasketItemRepository : BaseRepository<ApplicationDbContext, BaseFilter, BasketItem, Guid>,
         IBasketItemRepository
     {
-        public BasketItemRepository(ApplicationDbContext context)
-            : base(context)
+        public BasketItemRepository(ApplicationDbContext context, IElasticClient elasticClient)
+            : base(context, elasticClient)
         {
 
         }

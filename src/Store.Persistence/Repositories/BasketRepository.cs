@@ -4,6 +4,7 @@ using Store.Domain.Interfaces;
 using Store.Domain.Filters;
 using Store.Infrastructure.Data.Repositories;
 using Store.Persistence.Contexts;
+using Nest;
 
 namespace Store.Persistence.Repositories
 {
@@ -12,8 +13,8 @@ namespace Store.Persistence.Repositories
     {
         private readonly ApplicationDbContext _context;
 
-        public BasketRepository(ApplicationDbContext context)
-            : base(context)
+        public BasketRepository(ApplicationDbContext context, IElasticClient elasticClient)
+            : base(context, elasticClient)
         {
             _context = context;
         }

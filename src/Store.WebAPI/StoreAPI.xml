@@ -408,5 +408,12 @@
             <response code="404">NotFound</response>
             <response code="500">Internal Server Error</response>
         </member>
+        <member name="M:Store.WebAPI.Controllers.SearchController.Search(System.String)">
+            <summary>
+            Поиск продуктов
+            </summary>
+            <param name="keyword"></param>
+            <returns>Список продуктов</returns>
+        </member>
     </members>
 </doc>

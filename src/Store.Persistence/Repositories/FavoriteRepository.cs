@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Nest;
 using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Filters.Comments;
@@ -14,8 +15,8 @@ namespace Store.Persistence.Repositories
     {
         private readonly ApplicationDbContext _context;
 
-        public FavoriteRepository(ApplicationDbContext context)
-            : base(context)
+        public FavoriteRepository(ApplicationDbContext context, IElasticClient elasticClient)
+            : base(context, elasticClient)
         {
             _context = context;
         }
