@@ -27,7 +27,6 @@ namespace Store.Infrastructure.Data.Repositories
             data.Updated = DateTime.UtcNow;
             var result = await _context.Set<TModel>().AddAsync(data, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
-            await _elasticClient.IndexDocumentAsync(result.Entity, cancellationToken);
             return data;
         }
 

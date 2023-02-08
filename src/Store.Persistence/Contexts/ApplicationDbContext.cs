@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Nest;
 using Store.Domain.Entities;
 using Store.Persistence.Configurations;
 
@@ -6,9 +8,12 @@ namespace Store.Persistence.Contexts
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
+        private readonly IServiceProvider _services;
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IServiceProvider services) 
             : base(options)
         {
+            _services = services;
         }
 
         public DbSet<Product> Products { get; set; }
@@ -41,6 +46,24 @@ namespace Store.Persistence.Contexts
             builder.ApplyConfiguration(new ContactConfiguration());
             builder.ApplyConfiguration(new OrderConfiguration());
             builder.ApplyConfiguration(new OrderItemConfiguration());
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var elastic = _services.GetService<IElasticClient>();
+
+            var changedEntries = ChangeTracker
+                .Entries()
+                .Where(x => x.State == EntityState.Added);
+
+            foreach (var entry in changedEntries)
+            {
+                var entityType = entry.Entity.GetType().ToString();
+
+                elastic.IndexDocument(entry);
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }
