@@ -60,7 +60,10 @@ namespace Store.Persistence.Contexts
             {
                 var entityType = entry.Entity.GetType().ToString();
 
-                elastic.IndexDocument(entry);
+                if (entityType is Product)
+                {
+                    elastic.IndexDocument(entry);
+                }
             }
 
             return base.SaveChangesAsync(cancellationToken);
