@@ -4,16 +4,6 @@
         <name>Store.WebAPI</name>
     </assembly>
     <members>
-        <member name="M:Store.WebAPI.Controllers.AccountController.Login(Store.WebAPI.Models.Identity.LoginUserRequestDto)">
-            <summary>
-            Авторизация
-            </summary>
-            <param name="request"></param>
-            <returns></returns>
-            <response code="400">Bad Request</response>
-            <response code="401">Unauthorized</response>
-            <response code="200">Success</response>
-        </member>
         <member name="M:Store.WebAPI.Controllers.AddressController.GetAddress(System.Guid)">
             <summary>
             Получение адреса

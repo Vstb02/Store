@@ -4,8 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Store.Application.Interfaces;
 using Store.Application.Services;
 using Store.Domain.Interfaces;
-using Store.Infrastructure.Identity;
-using Store.Infrastructure.Middlewares;
 using Store.Persistence.Contexts;
 using Store.Persistence.Repositories;
 
@@ -16,13 +14,8 @@ namespace Store.Persistence.Extensions
         public static void ConfigureDbContext(this IServiceCollection services,
              IConfiguration configuration)
         {
-            services.AddDbContext<AppIdentityDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("IdentityConnection")));
-
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("ApplicationConnection")));
-
-            services.AddScoped<ITokenClaimsService, TokenClaimsService>();
         }
 
         public static void ConfigureDependencyContainer(this IServiceCollection services)

@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Store.Application.Extensions;
-using Store.Domain.Identity;
-using Store.Infrastructure.Identity;
 using Store.Infrastructure.Middlewares;
 using Store.Persistence.Extensions;
 using System.Text;
@@ -29,10 +26,6 @@ builder.Services.AddElasticsearch(Configuration);
 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-        .AddEntityFrameworkStores<AppIdentityDbContext>()
-        .AddDefaultTokenProviders();
 
 var key = Encoding.ASCII.GetBytes(Configuration.GetSection("JWT:SecurityKey").Value);
 
@@ -102,23 +95,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var scopedProvider = scope.ServiceProvider;
-
-    try
-    {
-        var userManager = scopedProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        var roleManager = scopedProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        var config = builder.Configuration;
-        await AppIdentityDbContextSeed.SeedAsync(userManager, roleManager, config);
-    }
-    catch (Exception ex)
-    {
-        app.Logger.LogError(ex, "An error occurred seeding the DB.");
-    }
-}
 
 if (app.Environment.IsDevelopment())
 {
