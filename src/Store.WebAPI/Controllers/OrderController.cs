@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
 using Store.Application.Models.Orders;
+using Store.Infrastructure.Base.Controllers;
 using System.Data;
 
 namespace Store.WebAPI.Controllers

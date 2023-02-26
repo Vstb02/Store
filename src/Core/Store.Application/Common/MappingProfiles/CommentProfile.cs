@@ -13,9 +13,6 @@ namespace Store.Application.Common.MappingProfiles
 
             CreateMap<CreateCommentDto, Comment>();
 
-            CreateMap<ApplicationUser, Comment>();
-
-            CreateMap<ApplicationUser, CommentItemDto>();
         }
     }
 }

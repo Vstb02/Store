@@ -12,31 +12,23 @@ namespace Store.Application.Services
     public class TokenClaimsService : ITokenClaimsService
     {
         private readonly IConfiguration _configuration;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TokenClaimsService(UserManager<ApplicationUser> userManager,
-                                  IConfiguration configuration)
+        public TokenClaimsService(IConfiguration configuration)
         {
-            _userManager = userManager;
             _configuration = configuration;
         }
 
-        public async Task<string> GetTokenAsync(ApplicationUser user)
+        public async Task<string> GetTokenAsync(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration.GetSection("JWT:SecurityKey").Value);
-            var roles = await _userManager.GetRolesAsync(user);
-            var claims = new List<Claim> { 
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
+            var claims = new List<Claim> {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Aud, _configuration["Jwt:Audience"]),
-                new Claim(JwtRegisteredClaimNames.Iss, _configuration["Jwt:Issuer"])
+                new Claim(JwtRegisteredClaimNames.Iss, _configuration["Jwt:Issuer"]),
+                new Claim(ClaimTypes.Role, user.UserInfos.Role.Name)
             };
-
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
 
             var tokenDescriptor = new SecurityTokenDescriptor()
             {

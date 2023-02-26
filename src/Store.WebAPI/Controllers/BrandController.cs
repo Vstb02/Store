@@ -4,6 +4,7 @@ using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
 using Store.Application.Models.Filters;
 using Store.Application.Models.Brands;
+using Store.Infrastructure.Base.Controllers;
 
 namespace Store.WebAPI.Controllers
 {

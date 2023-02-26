@@ -5,6 +5,7 @@ using Store.Application.Interfaces;
 using Store.Application.Models.Comments;
 using Store.Application.Models.Filters;
 using Store.Domain.Filters.Comments;
+using Store.Infrastructure.Base.Controllers;
 
 namespace Store.WebAPI.Controllers
 {

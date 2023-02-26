@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Store.Application.Interfaces;
 using Store.Application.Models.Filters;
+using Store.Infrastructure.Base.Controllers;
 
 namespace Store.WebAPI.Controllers
 {

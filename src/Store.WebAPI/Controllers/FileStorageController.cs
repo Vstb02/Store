@@ -4,6 +4,7 @@ using Store.Application.Common.Identity;
 using Store.Application.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using Store.Application.Common.Helpers;
+using Store.Infrastructure.Base.Controllers;
 
 namespace Store.WebAPI.Controllers
 {

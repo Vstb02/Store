@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Persistence", "src\St
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{3A4A31B5-A508-4DB5-A865-A44C265189D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Identity.API", "src\Services\Store.Identity.API\Store.Identity.API.csproj", "{00FD37C0-906C-4150-BAED-4A5402E4930D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Identity.API", "src\Services\Store.Identity.API\Store.Identity.API.csproj", "{00FD37C0-906C-4150-BAED-4A5402E4930D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Account.API", "src\Services\Store.Account.API\Store.Account.API.csproj", "{5D41D3BB-D351-42AE-8A0A-69A013DA5D0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{00FD37C0-906C-4150-BAED-4A5402E4930D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00FD37C0-906C-4150-BAED-4A5402E4930D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00FD37C0-906C-4150-BAED-4A5402E4930D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D41D3BB-D351-42AE-8A0A-69A013DA5D0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D41D3BB-D351-42AE-8A0A-69A013DA5D0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D41D3BB-D351-42AE-8A0A-69A013DA5D0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D41D3BB-D351-42AE-8A0A-69A013DA5D0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{F181356F-75B9-4E38-87EF-D21D07A0BA4F} = {FF0560F0-A7CB-4005-91FD-DF99892AD43D}
 		{3A4A31B5-A508-4DB5-A865-A44C265189D1} = {FF0560F0-A7CB-4005-91FD-DF99892AD43D}
 		{00FD37C0-906C-4150-BAED-4A5402E4930D} = {3A4A31B5-A508-4DB5-A865-A44C265189D1}
+		{5D41D3BB-D351-42AE-8A0A-69A013DA5D0F} = {3A4A31B5-A508-4DB5-A865-A44C265189D1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {08682326-8407-4CB4-A36A-470BE042C997}

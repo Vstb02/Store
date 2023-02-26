@@ -1,10 +1,16 @@
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Store.Application.Extensions;
+using Store.Domain.Identity;
 using Store.Infrastructure.Middlewares;
 using Store.Persistence.Extensions;
+using Store.WebAPI;
+using Store.WebAPI.Consumers;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -21,6 +27,8 @@ builder.Host.UseSerilog((hostContext, services, configuration) =>
 builder.Services.ConfigureDbContext(Configuration);
 builder.Services.ConfigureDependencyContainer();
 builder.Services.ConfigureCommonContainer();
+
+builder.Services.AddMemoryCache();
 
 builder.Services.AddElasticsearch(Configuration);
 
@@ -96,6 +104,34 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var scopedProvider = scope.ServiceProvider;
+    var cache = scopedProvider.GetRequiredService<IMemoryCache>();
+    try
+    {
+        var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
+        {
+            cfg.ReceiveEndpoint("user-status-event", e =>
+            {
+                e.Handler<User>(context =>
+                {
+                    cache.Remove(context.Message.Id);
+                    cache.Set(context.Message, context.Message.Id);
+
+                    return null;
+                });
+            });
+        });
+
+        await busControl.StartAsync(new CancellationToken());
+    }
+    catch (Exception ex)
+    {
+        app.Logger.LogError(ex, "An error occurred seeding the DB.");
+    }
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -108,6 +144,8 @@ app.UseExceptionHandlerMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<CheckUserMiddleware>();
 
 app.MapControllers();
 

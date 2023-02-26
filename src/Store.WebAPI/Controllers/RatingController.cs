@@ -4,6 +4,7 @@ using Store.Application.Interfaces;
 using Store.Application.Models.Raitings;
 using Store.Application.Models.Ratings;
 using Store.Domain.Entities;
+using Store.Infrastructure.Base.Controllers;
 
 namespace Store.WebAPI.Controllers
 {

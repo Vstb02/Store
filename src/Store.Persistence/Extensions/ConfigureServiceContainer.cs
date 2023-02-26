@@ -16,6 +16,9 @@ namespace Store.Persistence.Extensions
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("ApplicationConnection")));
+
+            services.AddDbContext<IdentityDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("IdentityConnection")));
         }
 
         public static void ConfigureDependencyContainer(this IServiceCollection services)
@@ -45,6 +48,7 @@ namespace Store.Persistence.Extensions
             services.AddScoped<IContactService, ContactService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ISearchService, SearchService>();
+            services.AddScoped<ITokenClaimsService, TokenClaimsService>();
         }
     }
 }

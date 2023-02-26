@@ -4,6 +4,6 @@ namespace Store.Application.Interfaces
 {
     public interface ITokenClaimsService
     {
-        Task<string> GetTokenAsync(ApplicationUser user);
+        Task<string> GetTokenAsync(User user);
     }
 }
