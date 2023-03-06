@@ -2,10 +2,10 @@
 {
     public enum OrderStatus
     {
-        none,
-        inProcessing,
-        inTransit,
-        delivered,
-        canceled,
+        None,
+        InProcessing,
+        InTransit,
+        Delivered,
+        Canceled,
     }
 }

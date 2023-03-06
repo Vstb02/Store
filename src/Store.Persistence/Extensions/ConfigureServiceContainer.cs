@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Store.Application.Interfaces;
 using Store.Application.Services;
 using Store.Domain.Interfaces;
@@ -19,6 +20,9 @@ namespace Store.Persistence.Extensions
 
             services.AddDbContext<IdentityDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("IdentityConnection")));
+
+            services.AddDbContext<BasketDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("BasketConnection")));
         }
 
         public static void ConfigureDependencyContainer(this IServiceCollection services)

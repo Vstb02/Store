@@ -71,7 +71,7 @@ namespace Store.Application.Services
                 OrderItems = items,
                 AddressId = addressId,
                 ContactId = contactId,
-                OrderStatus = OrderStatus.inProcessing,
+                OrderStatus = OrderStatus.InProcessing,
             };
 
             await _orderRepository.Create(order, cancellationToken);

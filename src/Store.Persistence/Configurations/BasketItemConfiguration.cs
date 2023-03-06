@@ -16,10 +16,6 @@ namespace Store.Persistence.Configurations
             builder.HasOne(x => x.Basket)
                 .WithMany(x => x.BasketItems)
                 .HasForeignKey(x => x.BasketId);
-
-            builder.HasOne(x => x.Product)
-                .WithMany(x => x.BasketItems)
-                .HasForeignKey(x => x.ProductId);
         }
     }
 }

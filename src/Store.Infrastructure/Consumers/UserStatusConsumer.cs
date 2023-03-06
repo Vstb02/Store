@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using Store.Domain.Identity;
 
-namespace Store.WebAPI.Consumers
+namespace Store.Infrastructure.Consumers
 {
     public class UserStatusConsumer : IConsumer<User>
     {

@@ -1,74 +1,48 @@
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Serilog;
-using Store.Application.Extensions;
 using Store.Domain.Identity;
 using Store.Infrastructure.Middlewares;
 using Store.Persistence.Extensions;
-using Store.WebAPI;
 using System.Text;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var Configuration = builder.Configuration;
-
-builder.Host.UseSerilog((hostContext, services, configuration) =>
-{
-    configuration
-        .WriteTo.Console();
-});
-
-builder.Services.ConfigureDbContext(Configuration);
-builder.Services.ConfigureDependencyContainer();
-builder.Services.ConfigureCommonContainer();
-
-builder.Services.AddMemoryCache();
-
-builder.Services.AddElasticsearch(Configuration);
-
-builder.Services.AddControllers().AddJsonOptions(x =>
-                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-
-var key = Encoding.ASCII.GetBytes(Configuration.GetSection("JWT:SecurityKey").Value);
-
-builder.Services.AddAuthentication(config =>
-{
-    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(config =>
-{
-    config.RequireHttpsMetadata = false;
-    config.SaveToken = true;
-    config.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidIssuer = Configuration["Jwt:Issuer"],
-        ValidAudience = Configuration["Jwt:Audience"],
-    };
-});
+var config = builder.Configuration;
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.ConfigureDbContext(config);
+
+builder.Services.AddMemoryCache();
+
+var key = Encoding.ASCII.GetBytes(config.GetSection("JWT:SecurityKey").Value);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidateLifetime = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:SecurityKey"])),
+            ValidateIssuerSigningKey = true,
+        };
+    });
 
 builder.Services.AddSwaggerGen(c =>
 {
     var basePath = AppContext.BaseDirectory;
 
-    var xmlPath = Path.Combine(basePath, "StoreAPI.xml");
-    c.IncludeXmlComments(xmlPath);
-
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Store API", Version = "v1" });
-    c.EnableAnnotations();
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Store API", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
@@ -145,6 +119,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddleware<CheckUserMiddleware>();
+
 
 app.MapControllers();
 

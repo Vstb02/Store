@@ -8,20 +8,20 @@ using Nest;
 
 namespace Store.Persistence.Repositories
 {
-    public class BasketRepository : BaseRepository<ApplicationDbContext, BaseFilter, Basket, Guid>,
+    public class BasketRepository : BaseRepository<BasketDbContext, BaseFilter, Basket, Guid>,
         IBasketRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly BasketDbContext _context;
 
-        public BasketRepository(ApplicationDbContext context, IElasticClient elasticClient)
+        public BasketRepository(BasketDbContext context, IElasticClient elasticClient)
             : base(context, elasticClient)
         {
             _context = context;
         }
 
-        public async Task<Basket> GetByBuyerId(string buyerId, CancellationToken cancellationToken = default)
+        public Task<Basket> GetByBuyerId(string buyerId, CancellationToken cancellationToken = default)
         {
-            var result = await _context.Baskets.Include(x => x.BasketItems)
+            var result = _context.Baskets.Include(x => x.BasketItems)
                                                .ThenInclude(x => x.Product)
                                                .FirstOrDefaultAsync(x => x.BuyerId.Equals(buyerId),
                                                                     cancellationToken);

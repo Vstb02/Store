@@ -50,7 +50,7 @@ namespace Store.Application.Services
                 throw new NotFoundException("Товар не найден");
             }
 
-            if (existingProduct.Status is ProductStatus.outStock)
+            if (existingProduct.Status is ProductStatus.OutStock)
             {
                 throw new OutOfStockException();
             }
@@ -61,7 +61,7 @@ namespace Store.Application.Services
 
             if (existingProduct.Quantity == 0)
             {
-                existingProduct.Status = ProductStatus.outStock;
+                existingProduct.Status = ProductStatus.OutStock;
             }
 
             await _productRepository.Update(existingProduct);

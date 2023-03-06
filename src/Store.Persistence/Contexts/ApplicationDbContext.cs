@@ -19,8 +19,6 @@ namespace Store.Persistence.Contexts
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductCategory> Categories { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
-        public DbSet<Basket> Baskets { get; set; }
-        public DbSet<BasketItem> BasketItems { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -33,8 +31,6 @@ namespace Store.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.ApplyConfiguration(new BasketConfiguration());
-            builder.ApplyConfiguration(new BasketItemConfiguration());
             builder.ApplyConfiguration(new ProductCategoryConfiguration());
             builder.ApplyConfiguration(new ProductConfiguration());
             builder.ApplyConfiguration(new ProductImageConfiguration());
