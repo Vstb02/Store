@@ -27,10 +27,9 @@ namespace Store.Identity.API.Controllers
         public async Task<IActionResult> Login(LoginRequest request)
         {
             var user = await _context.Users.Include(x => x.UserInfos)
-                .ThenInclude(x => x.Role)
                 .FirstOrDefaultAsync(x => x.UserName.ToLower() == request.UserName.ToLower().Trim());
 
-            if (user == null)
+            if (user is null)
             {
                 return Unauthorized(new { ErrorMessage = "Пользователь не найден" });
             }

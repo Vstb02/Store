@@ -50,6 +50,7 @@ namespace Store.Account.API.Controllers
             {
                 Id = Guid.NewGuid(),
                 UserName = request.UserName,
+                Role = defaultRole,
                 Password = PasswordHelper.HashPassword(request.Password),
             };
 
@@ -58,7 +59,6 @@ namespace Store.Account.API.Controllers
                 Id = Guid.NewGuid(),
                 Name = request.Name,
                 Surname = request.Surname,
-                Role = defaultRole,
                 Email = request.Email,
             };
 

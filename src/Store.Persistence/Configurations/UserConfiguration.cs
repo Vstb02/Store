@@ -21,6 +21,10 @@ namespace Store.Persistence.Configurations
             builder.HasOne(x => x.UserInfos)
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.UserInfoId);
+
+            builder.HasOne(x => x.Role)
+                .WithMany(x => x.Users)
+                .HasForeignKey(x => x.RoleId);
         }
     }
 }

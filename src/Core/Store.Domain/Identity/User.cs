@@ -8,5 +8,7 @@ namespace Store.Domain.Identity
         public string Password { get; set; }
         public Guid UserInfoId { get; set; }
         public UserInfo UserInfos { get; set; }
+        public Guid RoleId { get; set; }
+        public Role Role { get; set; }
     }
 }

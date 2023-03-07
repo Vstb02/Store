@@ -15,7 +15,5 @@ namespace Store.Domain.Identity
         public AccountStatus AccountStatus { get; set; }
         [JsonIgnore]
         public List<User> Users { get; set; } = new List<User>();
-        public Guid RoleId { get; set; }
-        public Role Role { get; set; }
     }
 }

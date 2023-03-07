@@ -34,10 +34,6 @@ namespace Store.Persistence.Configurations
             builder.Property(x => x.PhoneNumber)
                 .IsRequired(false)
                 .HasMaxLength(20);
-
-            builder.HasOne(x => x.Role)
-                .WithMany(x => x.Users)
-                .HasForeignKey(x => x.RoleId);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Store.Application.Services
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Aud, _configuration["Jwt:Audience"]),
                 new Claim(JwtRegisteredClaimNames.Iss, _configuration["Jwt:Issuer"]),
-                new Claim(ClaimTypes.Role, user.UserInfos.Role.Name)
+                new Claim(ClaimTypes.Role, user.Role.Name)
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor()
