@@ -42,7 +42,7 @@ namespace Store.Infrastructure.Middlewares
 
         private Task<bool> IsUserBlockedAsync(string userId)
         {
-            var user = _cache. Get(userId);
+            _cache.TryGetValue(userId, out User? user);
 
             if (user is null)
             {
