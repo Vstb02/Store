@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
+using Store.Application.Common.Exceptions;
+using Store.Domain.Enums;
 using Store.Domain.Identity;
 using System.Net;
 using System.Security.Claims;
@@ -40,8 +42,16 @@ namespace Store.Infrastructure.Middlewares
 
         private Task<bool> IsUserBlockedAsync(string userId)
         {
-            User user = _cache.Get(userId) as User;
-            return Task.FromResult(false);
+            var user = _cache. Get(userId);
+
+            if (user is null)
+            {
+                return Task.FromResult(false);
+            }
+
+            return user.UserInfos.AccountStatus is AccountStatus.Banned 
+                ? Task.FromResult(true) 
+                : Task.FromResult(false);
         }
     }
 }

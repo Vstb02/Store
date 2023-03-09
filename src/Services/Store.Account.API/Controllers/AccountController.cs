@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using Nest;
 using Store.Account.API.Models;
 using Store.Application.Common.Exceptions;
 using Store.Application.Common.Helpers;

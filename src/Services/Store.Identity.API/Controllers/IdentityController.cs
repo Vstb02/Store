@@ -26,7 +26,8 @@ namespace Store.Identity.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginRequest request)
         {
-            var user = await _context.Users.Include(x => x.UserInfos)
+            var user = await _context.Users.Include(x => x.Role)
+                .Include(x => x.UserInfos)
                 .FirstOrDefaultAsync(x => x.UserName.ToLower() == request.UserName.ToLower().Trim());
 
             if (user is null)

@@ -116,9 +116,9 @@ using (var scope = app.Services.CreateScope())
                 e.Handler<User>(context =>
                 {
                     cache.Remove(context.Message.Id);
-                    cache.Set(context.Message, context.Message.Id);
+                    cache.Set(context.Message.Id, context.Message);
 
-                    return null;
+                    return Task.CompletedTask;
                 });
             });
         });
