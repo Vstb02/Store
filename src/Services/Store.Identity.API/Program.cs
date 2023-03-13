@@ -1,9 +1,16 @@
+using Serilog;
 using Store.Application.Interfaces;
 using Store.Application.Services;
 using Store.Infrastructure.Middlewares;
 using Store.Persistence.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((hostContext, services, configuration) =>
+{
+    configuration
+        .WriteTo.Console();
+});
 
 var config = builder.Configuration;
 

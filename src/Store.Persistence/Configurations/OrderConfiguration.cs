@@ -13,10 +13,6 @@ namespace Store.Persistence.Configurations
             builder.HasOne(x => x.Address)
                 .WithMany(x => x.Orders)
                 .HasForeignKey(x => x.AddressId);
-
-            builder.HasOne(x => x.Contact)
-                .WithMany(x => x.Orders)
-                .HasForeignKey(x => x.ContactId);
         }
     }
 }

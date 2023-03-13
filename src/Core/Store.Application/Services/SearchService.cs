@@ -14,13 +14,11 @@ namespace Store.Application.Services
 {
     public class SearchService : ISearchService
     {
-        private readonly IProductRepository _productRepository;
         private readonly IElasticClient _elasticClient;
         private readonly IMapper _mapper;
 
-        public SearchService(IProductRepository productRepository, IElasticClient elasticClient, IMapper mapper)
+        public SearchService(IElasticClient elasticClient, IMapper mapper)
         {
-            _productRepository = productRepository;
             _elasticClient = elasticClient;
             _mapper = mapper;
         }

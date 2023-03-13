@@ -9,9 +9,6 @@ namespace Store.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Favorite> builder)
         {
             builder.HasKey(x => x.Id);
-
-            builder.HasMany(x => x.Products)
-                .WithMany(x => x.Favorites);
         }
     }
 }

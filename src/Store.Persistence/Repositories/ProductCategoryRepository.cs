@@ -8,20 +8,20 @@ using Store.Persistence.Contexts;
 
 namespace Store.Persistence.Repositories
 {
-    public class ProductCategoryRepository : BaseRepository<ApplicationDbContext, BaseFilter, ProductCategory, Guid>,
+    public class ProductCategoryRepository : BaseRepository<ProductDbContext, BaseFilter, ProductCategory, Guid>,
         IProductCategoryRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ProductDbContext _context;
 
-        public ProductCategoryRepository(ApplicationDbContext context, IElasticClient elasticClient)
+        public ProductCategoryRepository(ProductDbContext context, IElasticClient elasticClient)
             : base(context, elasticClient)
         {
             _context = context;
         }
 
-        public async Task<ProductCategory> GetByName(string name, CancellationToken cancellationToken = default)
+        public Task<ProductCategory> GetByName(string name, CancellationToken cancellationToken = default)
         {
-            var result = await _context.Categories.FirstOrDefaultAsync(x => x.Name.Equals(name));
+            var result = _context.Categories.FirstOrDefaultAsync(x => x.Name.Equals(name));
 
             return result;
         }

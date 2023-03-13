@@ -22,9 +22,8 @@ namespace Store.Persistence.Repositories
         public Task<Basket> GetByBuyerId(string buyerId, CancellationToken cancellationToken = default)
         {
             var result = _context.Baskets.Include(x => x.BasketItems)
-                                               .ThenInclude(x => x.Product)
-                                               .FirstOrDefaultAsync(x => x.BuyerId.Equals(buyerId),
-                                                                    cancellationToken);
+                .ThenInclude(x => x.Product)
+                .FirstOrDefaultAsync(x => x.BuyerId.Equals(buyerId), cancellationToken);
 
             return result;
         }

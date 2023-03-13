@@ -8,22 +8,21 @@ using Store.Persistence.Contexts;
 
 namespace Store.Persistence.Repositories
 {
-    public class ContactRepository : BaseRepository<ApplicationDbContext, BaseFilter, Contact, Guid>,
+    public class ContactRepository : BaseRepository<IdentityDbContext, BaseFilter, Contact, Guid>,
         IContactRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IdentityDbContext _context;
 
-        public ContactRepository(ApplicationDbContext context, IElasticClient elasticClient)
+        public ContactRepository(IdentityDbContext context, IElasticClient elasticClient)
             : base(context, elasticClient)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<Contact>> GetContactsByBuyerId(string buyerId,
-                                           CancellationToken cancellationToken = default)
+        public Task<List<Contact>> GetContactsByBuyerId(string buyerId, CancellationToken cancellationToken = default)
         {
-            var result = await _context.Contacts.Where(x => x.BuyerId.Equals(buyerId))
-                                                 .ToListAsync(cancellationToken);
+            var result = _context.Contacts.Where(x => x.BuyerId.Equals(buyerId))
+                .ToListAsync(cancellationToken);
 
             return result;
         }

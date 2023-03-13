@@ -9,27 +9,27 @@ using Store.Persistence.Contexts;
 
 namespace Store.Persistence.Repositories
 {
-    public class ProductRepository : BaseRepository<ApplicationDbContext, ProductFilter, Product, Guid>, IProductRepository
+    public class ProductRepository : BaseRepository<ProductDbContext, ProductFilter, Product, Guid>, IProductRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ProductDbContext _context;
         private readonly IElasticClient _elasticClient;
-        public ProductRepository(ApplicationDbContext context, IElasticClient elasticClient) 
+        public ProductRepository(ProductDbContext context, IElasticClient elasticClient) 
             : base(context, elasticClient)
         {
             _context = context;
             _elasticClient = elasticClient;
         }
 
-        public async Task<Product> GetByName(string name, CancellationToken cancellationToken = default)
+        public Task<Product> GetByName(string name, CancellationToken cancellationToken = default)
         {
-            var entity = await _context.Products.FirstOrDefaultAsync(x => x.Name.Equals(name), cancellationToken);
+            var entity = _context.Products.FirstOrDefaultAsync(x => x.Name.Equals(name), cancellationToken);
 
             return entity;
         }
 
-        public override async Task<IEnumerable<Product>> GetPageItems(FilterPaging paging,
-                                                             ProductFilter filter,
-                                                             CancellationToken cancellationToken = default)
+        public override Task<List<Product>> GetPageItems(FilterPaging paging,
+                                                         ProductFilter filter,
+                                                         CancellationToken cancellationToken = default)
         {
             var query = _context.Products.Include(x => x.ProductImages)
                                          .Include(x => x.Brand)
@@ -38,7 +38,7 @@ namespace Store.Persistence.Repositories
             query = ApplyPaging(query, paging);
             query = ApplyFilter(query, filter);
 
-            var data = await query.ToListAsync(cancellationToken);
+            var data = query.ToListAsync(cancellationToken);
             return data;
         }
 

@@ -8,21 +8,20 @@ using Store.Persistence.Contexts;
 
 namespace Store.Persistence.Repositories
 {
-    public class AddressRepository : BaseRepository<ApplicationDbContext, BaseFilter, Address, Guid>,
+    public class AddressRepository : BaseRepository<IdentityDbContext, BaseFilter, Address, Guid>,
         IAddressRepository
     {
-        private readonly ApplicationDbContext _context;
-        public AddressRepository(ApplicationDbContext context, IElasticClient elasticClient)
+        private readonly IdentityDbContext _context;
+        public AddressRepository(IdentityDbContext context, IElasticClient elasticClient)
             : base(context, elasticClient)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<Address>> GetAddressesByBuyerId(string buyerId,
-                                                               CancellationToken cancellationToken = default)
+        public Task<List<Address>> GetAddressesByBuyerId(string buyerId, CancellationToken cancellationToken = default)
         {
-            var result = await _context.Addresses.Where(x => x.BuyerId.Equals(buyerId))
-                                                 .ToListAsync(cancellationToken);
+            var result = _context.Addresses.Where(x => x.BuyerId.Equals(buyerId))
+                .ToListAsync(cancellationToken);
 
             return result;
         }

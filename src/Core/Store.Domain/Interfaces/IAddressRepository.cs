@@ -5,7 +5,7 @@ namespace Store.Domain.Interfaces
 {
     public interface IAddressRepository : IBaseRepository<BaseFilter, Address, Guid>
     {
-        Task<IEnumerable<Address>> GetAddressesByBuyerId(string buyerId,
+        Task<List<Address>> GetAddressesByBuyerId(string buyerId,
                                                   CancellationToken cancellationToken = default);
     }
 }

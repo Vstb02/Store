@@ -15,17 +15,30 @@ namespace Store.Persistence.Extensions
         public static void ConfigureDbContext(this IServiceCollection services,
              IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ApplicationConnection")));
+            services.AddDbContext<ProductDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("ProductsConnection")));
 
             services.AddDbContext<IdentityDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("IdentityConnection")));
 
             services.AddDbContext<BasketDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("BasketConnection")));
+
+            services.AddDbContext<FavoriteDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("FavoritesConnection")));
+
+            services.AddDbContext<RatingDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("RatingsConnection")));
+
+            services.AddDbContext<OrderDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("OrdersConnection")));
+
+            services.AddDbContext<CommentDbContext>(options =>
+                 options.UseSqlServer(configuration.GetConnectionString("CommentsConnection")));
         }
 
-        public static void ConfigureDependencyContainer(this IServiceCollection services)
+        public static void ConfigureDependencyContainer(this IServiceCollection services,
+            IConfiguration configuration)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
@@ -53,6 +66,9 @@ namespace Store.Persistence.Extensions
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<ITokenClaimsService, TokenClaimsService>();
+
+            services.AddMemoryCache();
+            services.AddElasticsearch(configuration);
         }
     }
 }

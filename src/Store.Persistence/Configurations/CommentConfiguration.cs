@@ -13,10 +13,6 @@ namespace Store.Persistence.Configurations
             builder.Property(x => x.Content)
                 .IsRequired()
                 .HasMaxLength(500);
-
-            builder.HasOne(x => x.Product)
-                .WithMany(x => x.Comments)
-                .HasForeignKey(x => x.ProductId);
         }
     }
 }

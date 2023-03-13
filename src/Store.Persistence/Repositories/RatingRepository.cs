@@ -8,28 +8,27 @@ using Store.Persistence.Contexts;
 
 namespace Store.Persistence.Repositories
 {
-    public class RatingRepository : BaseRepository<ApplicationDbContext, BaseFilter, Rating, Guid>,
+    public class RatingRepository : BaseRepository<RatingDbContext, BaseFilter, Rating, Guid>,
         IRatingRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly RatingDbContext _context;
 
-        public RatingRepository(ApplicationDbContext context, IElasticClient elasticClient)
+        public RatingRepository(RatingDbContext context, IElasticClient elasticClient)
             : base(context, elasticClient)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<Rating>> GetByProductId(Guid productId, CancellationToken cancellationToken = default)
+        public Task<List<Rating>> GetByProductId(Guid productId, CancellationToken cancellationToken = default)
         {
-            var result = await _context.Ratings.Where(x => x.ProductId.Equals(productId)).ToListAsync();
+            var result = _context.Ratings.Where(x => x.ProductId.Equals(productId)).ToListAsync();
 
             return result;
         }
 
-        public async Task<Rating> GetByBuyerId(string buyerId, CancellationToken cancellationToken = default)
+        public Task<Rating> GetByBuyerId(string buyerId, CancellationToken cancellationToken = default)
         {
-            var result = await _context.Ratings.FirstOrDefaultAsync(x => x.AuthorId.Equals(buyerId),
-                                                                    cancellationToken);
+            var result = _context.Ratings.FirstOrDefaultAsync(x => x.AuthorId.Equals(buyerId), cancellationToken);
 
             return result;
         }

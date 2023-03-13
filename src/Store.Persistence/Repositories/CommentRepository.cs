@@ -9,27 +9,25 @@ using Store.Persistence.Contexts;
 
 namespace Store.Persistence.Repositories
 {
-    public class CommentRepository : BaseRepository<ApplicationDbContext, CommentFilter, Comment, Guid>,
+    public class CommentRepository : BaseRepository<CommentDbContext, CommentFilter, Comment, Guid>,
         ICommentRepository
     {
-        private readonly ApplicationDbContext _context; 
+        private readonly CommentDbContext _context; 
 
-        public CommentRepository(ApplicationDbContext context, IElasticClient elasticClient)
+        public CommentRepository(CommentDbContext context, IElasticClient elasticClient)
             : base(context, elasticClient)
         {
             _context = context;
         }
 
-        public override async Task<IEnumerable<Comment>> GetPageItems(FilterPaging paging,
-                                                               CommentFilter filter,
-                                                               CancellationToken cancellationToken = default)
+        public override Task<List<Comment>> GetPageItems(FilterPaging paging, CommentFilter filter, CancellationToken cancellationToken = default)
         {
             var query = _context.Comments.AsNoTracking();
 
             query = ApplyPaging(query, paging);
             query = ApplyFilter(query, filter);
 
-            var data = await query.ToListAsync(cancellationToken);
+            var data = query.ToListAsync(cancellationToken);
             return data;
         }
     }

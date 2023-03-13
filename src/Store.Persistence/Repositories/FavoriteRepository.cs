@@ -10,22 +10,22 @@ using Store.Persistence.Contexts;
 
 namespace Store.Persistence.Repositories
 {
-    public class FavoriteRepository : BaseRepository<ApplicationDbContext, BaseFilter, Favorite, Guid>, 
+    public class FavoriteRepository : BaseRepository<FavoriteDbContext, BaseFilter, Favorite, Guid>, 
         IFavoriteRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly FavoriteDbContext _context;
 
-        public FavoriteRepository(ApplicationDbContext context, IElasticClient elasticClient)
+        public FavoriteRepository(FavoriteDbContext context, IElasticClient elasticClient)
             : base(context, elasticClient)
         {
             _context = context;
         }
 
-        public async Task<Favorite> GetByBuyerId(string buyerId, CancellationToken cancellationToken = default)
+        public Task<Favorite> GetByBuyerId(string buyerId, CancellationToken cancellationToken = default)
         {
-            var result = await _context.Favorites.Include(x => x.Products)
-                                               .FirstOrDefaultAsync(x => x.BuyerId.Equals(buyerId),
-                                                                    cancellationToken);
+            var result = _context.Favorites.Include(x => x.Products).FirstOrDefaultAsync(
+                x => x.BuyerId.Equals(buyerId),
+                cancellationToken);
 
             return result;
         }

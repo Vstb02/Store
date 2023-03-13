@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using Store.Application.Common.Exceptions;
 using Store.Application.Interfaces;
 using Store.Application.Models.Comments;
@@ -7,7 +6,6 @@ using Store.Application.Models.Filters;
 using Store.Domain.Entities;
 using Store.Domain.Filters;
 using Store.Domain.Filters.Comments;
-using Store.Domain.Identity;
 using Store.Domain.Interfaces;
 
 namespace Store.Application.Services

@@ -7,10 +7,10 @@ using Store.Persistence.Contexts;
 
 namespace Store.Persistence.Repositories
 {
-    public class BasketItemRepository : BaseRepository<ApplicationDbContext, BaseFilter, BasketItem, Guid>,
+    public class BasketItemRepository : BaseRepository<IdentityDbContext, BaseFilter, BasketItem, Guid>,
         IBasketItemRepository
     {
-        public BasketItemRepository(ApplicationDbContext context, IElasticClient elasticClient)
+        public BasketItemRepository(IdentityDbContext context, IElasticClient elasticClient)
             : base(context, elasticClient)
         {
 

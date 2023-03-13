@@ -8,21 +8,20 @@ using Nest;
 
 namespace Store.Persistence.Repositories
 {
-    public class BrandRepository : BaseRepository<ApplicationDbContext, BaseFilter, Brand, Guid>,
+    public class BrandRepository : BaseRepository<ProductDbContext, BaseFilter, Brand, Guid>,
         IBrandRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ProductDbContext _context;
 
-        public BrandRepository(ApplicationDbContext context, IElasticClient elasticClient)
+        public BrandRepository(ProductDbContext context, IElasticClient elasticClient)
             : base(context, elasticClient)
         {
             _context = context; 
         }
 
-        public async Task<Brand> GetByName(string name, CancellationToken cancellationToken = default)
+        public Task<Brand> GetByName(string name, CancellationToken cancellationToken = default)
         {
-            var result = await _context.Brands.FirstOrDefaultAsync(x => x.Name.Equals(name),
-                                                                   cancellationToken);
+            var result = _context.Brands.FirstOrDefaultAsync(x => x.Name.Equals(name), cancellationToken);
 
             return result;
         }

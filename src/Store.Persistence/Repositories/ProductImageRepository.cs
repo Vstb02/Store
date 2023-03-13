@@ -7,10 +7,10 @@ using Store.Persistence.Contexts;
 
 namespace Store.Persistence.Repositories
 {
-    public class ProductImageRepository : BaseRepository<ApplicationDbContext, BaseFilter, ProductImage, Guid>,
+    public class ProductImageRepository : BaseRepository<ProductDbContext, BaseFilter, ProductImage, Guid>,
         IProductImageRepository
     {
-        public ProductImageRepository(ApplicationDbContext context, IElasticClient elasticClient)
+        public ProductImageRepository(ProductDbContext context, IElasticClient elasticClient)
             : base(context, elasticClient)
         {
         }

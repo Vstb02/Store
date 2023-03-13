@@ -9,10 +9,6 @@ namespace Store.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Rating> builder)
         {
             builder.HasKey(x => x.Id);
-
-            builder.HasOne(x => x.Product)
-                .WithMany(x => x.Ratings)
-                .HasForeignKey(x => x.ProductId);
         }
     }
 }
